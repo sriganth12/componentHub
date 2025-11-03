@@ -18,7 +18,7 @@ const WarrantyClaimPage: React.FC<WarrantyClaimPageProps> = ({ item, onClose, on
   };
 
   return (
-    <div className="animate-fadeIn max-w-2xl mx-auto">
+    <div className="animate-fadeIn w-full">
       <div className="flex justify-between items-center mb-6 flex-wrap gap-2">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
           <ShieldCheckIcon className="w-8 h-8 text-yellow-500" />

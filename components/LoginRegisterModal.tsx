@@ -58,7 +58,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToRegister, on
                  <form onSubmit={handleForgotSubmit} className="space-y-6">
                     <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 text-center mb-2">Reset Password</h2>
                     <p className="text-center text-gray-500 dark:text-gray-400 mb-6">Enter your email and we'll send you instructions to reset your password.</p>
-                    <InputField icon={<MailIcon className="w-5 h-5 text-gray-400" />} type="email" placeholder="Email Address" value={forgotEmail} onChange={(e) => setForgotEmail(e.target.value)} autoFocus />
+                    <InputField icon={<MailIcon className="w-5 h-5 text-gray-400" />} type="email" placeholder="Email Address" value={forgotEmail} onChange={(e) => setForgotEmail(e.target.value)} autoFocus autoComplete="email" />
                     <button type="submit" className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-3 rounded-lg hover:from-orange-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-orange-400/50 transform hover:-translate-y-0.5">
                         Send Reset Link
                     </button>
@@ -84,9 +84,9 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToRegister, on
                 <form onSubmit={handleLoginSubmit} className="space-y-6">
                   <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 text-center mb-2">Welcome Back!</h2>
                   <p className="text-center text-gray-500 dark:text-gray-400 mb-6">Sign in to continue to Component Hub.</p>
-                  <InputField icon={<MailIcon className="w-5 h-5 text-gray-400" />} type="email" placeholder="Email Address" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} autoFocus />
+                  <InputField icon={<MailIcon className="w-5 h-5 text-gray-400" />} type="email" placeholder="Email Address" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} autoFocus autoComplete="email" />
                   <div>
-                    <InputField icon={<LockClosedIcon className="w-5 h-5 text-gray-400" />} type="password" placeholder="Password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} />
+                    <InputField icon={<LockClosedIcon className="w-5 h-5 text-gray-400" />} type="password" placeholder="Password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} autoComplete="current-password" />
                     <button type="button" onClick={() => setView('forgotPassword')} className="text-xs text-orange-600 dark:text-orange-400 hover:underline mt-1 text-right w-full">
                         Forgot Password?
                     </button>
@@ -104,7 +104,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToRegister, on
     <div className="min-h-screen flex justify-center items-center p-4 animate-fadeIn bg-gray-50 dark:bg-gray-900">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-2xl w-full max-w-md relative p-8">
         <button onClick={onClose} className="absolute top-3 right-3 p-1.5 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors z-10" aria-label="Close">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
 
         {renderContent()}

@@ -410,7 +410,7 @@ const App: React.FC = () => {
       case 'review':
         return itemToReview && <ReviewPage item={itemToReview} onClose={() => setView('orders')} onSubmit={handleReviewSubmit} />;
       case 'profile':
-        return currentUser && <ProfilePage user={currentUser} onBack={() => setView('brands')} onUpdateUser={handleUpdateUser} />;
+        return currentUser && <ProfilePage user={currentUser} onBack={() => setView('brands')} onUpdateUser={handleUpdateUser} onLogout={handleLogout} />;
       case 'brandComponents':
         return selectedBrand && (
             <BrandComponentsView
@@ -454,7 +454,7 @@ const App: React.FC = () => {
                             {categoryHeadings[category]}
                             </h2>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {brands.map((brand, index) => (
                             <BrandCard
                                 key={brand.id}
@@ -492,16 +492,18 @@ const App: React.FC = () => {
             onCartClick={() => setView('cart')}
             onOrdersClick={() => handleLoginRequired('orders')}
             onProfileClick={() => handleLoginRequired('profile')}
-            onLogout={handleLogout}
             onLoginClick={() => {
                 setPreviousView(view);
                 setView('login');
             }}
             currentUser={currentUser}
+            placedOrders={currentUser ? placedOrders.filter(o => o.userId === currentUser.id) : []}
+            warrantyClaims={currentUser ? warrantyClaims.filter(c => c.userId === currentUser.id) : []}
+            returnRequests={currentUser ? returnRequests.filter(r => r.userId === currentUser.id) : []}
         />
       )}
 
-      <main className={!mainContentHidden ? "container mx-auto px-4 sm:px-6 lg:px-8 py-8" : ""}>
+      <main className={!mainContentHidden ? "px-4 sm:px-6 lg:px-8 py-8" : ""}>
         {renderView()}
       </main>
     </div>

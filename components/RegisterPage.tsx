@@ -67,23 +67,23 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onRegister, onNavigateToLog
     <div className="min-h-screen flex justify-center items-center p-4 animate-fadeIn bg-gray-50 dark:bg-gray-900">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-2xl w-full max-w-md relative p-8">
         <button onClick={onClose} className="absolute top-3 right-3 p-1.5 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors z-10" aria-label="Close">
-             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
 
         <form onSubmit={handleRegisterSubmit} className="space-y-4">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 text-center mb-2">Create an Account</h2>
             <p className="text-center text-gray-500 dark:text-gray-400 mb-6">Get started with your new account.</p>
-            <InputField icon={<UserIcon className="w-5 h-5 text-gray-400" />} type="text" placeholder="Full Name" value={registerName} onChange={(e) => setRegisterName(e.target.value)} autoFocus />
-            <InputField icon={<MailIcon className="w-5 h-5 text-gray-400" />} type="email" placeholder="Email Address" value={registerEmail} onChange={(e) => setRegisterEmail(e.target.value)} />
-            <InputField icon={<LockClosedIcon className="w-5 h-5 text-gray-400" />} type="password" placeholder="Password" value={registerPassword} onChange={(e) => setRegisterPassword(e.target.value)} />
-            <InputField icon={<LockClosedIcon className="w-5 h-5 text-gray-400" />} type="password" placeholder="Retype Password" value={registerConfirmPassword} onChange={(e) => setRegisterConfirmPassword(e.target.value)} />
-            <InputField icon={<MapPinIcon className="w-5 h-5 text-gray-400" />} type="text" placeholder="Delivery Address" value={registerAddress} onChange={(e) => setRegisterAddress(e.target.value)} />
+            <InputField icon={<UserIcon className="w-5 h-5 text-gray-400" />} type="text" placeholder="Full Name" value={registerName} onChange={(e) => setRegisterName(e.target.value)} autoFocus autoComplete="name" />
+            <InputField icon={<MailIcon className="w-5 h-5 text-gray-400" />} type="email" placeholder="Email Address" value={registerEmail} onChange={(e) => setRegisterEmail(e.target.value)} autoComplete="email" />
+            <InputField icon={<LockClosedIcon className="w-5 h-5 text-gray-400" />} type="password" placeholder="Password" value={registerPassword} onChange={(e) => setRegisterPassword(e.target.value)} autoComplete="new-password" />
+            <InputField icon={<LockClosedIcon className="w-5 h-5 text-gray-400" />} type="password" placeholder="Retype Password" value={registerConfirmPassword} onChange={(e) => setRegisterConfirmPassword(e.target.value)} autoComplete="new-password" />
+            <InputField icon={<MapPinIcon className="w-5 h-5 text-gray-400" />} type="text" placeholder="Delivery Address" value={registerAddress} onChange={(e) => setRegisterAddress(e.target.value)} autoComplete="street-address" />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <InputField icon={<MapPinIcon className="w-5 h-5 text-gray-400" />} type="text" placeholder="State" value={registerState} onChange={(e) => setRegisterState(e.target.value)} />
-              <InputField icon={<MapPinIcon className="w-5 h-5 text-gray-400" />} type="text" placeholder="Country" value={registerCountry} onChange={(e) => setRegisterCountry(e.target.value)} />
+              <InputField icon={<MapPinIcon className="w-5 h-5 text-gray-400" />} type="text" placeholder="State" value={registerState} onChange={(e) => setRegisterState(e.target.value)} autoComplete="address-level1" />
+              <InputField icon={<MapPinIcon className="w-5 h-5 text-gray-400" />} type="text" placeholder="Country" value={registerCountry} onChange={(e) => setRegisterCountry(e.target.value)} autoComplete="country-name" />
             </div>
-            <InputField icon={<MapPinIcon className="w-5 h-5 text-gray-400" />} type="text" placeholder="Pin Code" value={registerPinCode} onChange={(e) => setRegisterPinCode(e.target.value)} />
-            <InputField icon={<PhoneIcon className="w-5 h-5 text-gray-400" />} type="tel" placeholder="Phone Number" value={registerPhoneNumber} onChange={(e) => setRegisterPhoneNumber(e.target.value)} />
+            <InputField icon={<MapPinIcon className="w-5 h-5 text-gray-400" />} type="text" placeholder="Pin Code" value={registerPinCode} onChange={(e) => setRegisterPinCode(e.target.value)} autoComplete="postal-code" />
+            <InputField icon={<PhoneIcon className="w-5 h-5 text-gray-400" />} type="tel" placeholder="Phone Number" value={registerPhoneNumber} onChange={(e) => setRegisterPhoneNumber(e.target.value)} autoComplete="tel" />
             {error && <p className="text-red-500 text-sm text-center">{error}</p>}
             <button type="submit" className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-3 rounded-lg hover:from-orange-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-orange-400/50 transform hover:-translate-y-0.5">
                 Register

@@ -69,7 +69,7 @@ const Cart: React.FC<CartProps> = ({ cartItems, onUpdateQuantity, onClose, onChe
   }
 
   return (
-    <div className="container mx-auto animate-fadeIn">
+    <div className="w-full animate-fadeIn">
         <div className="flex justify-between items-center mb-6 flex-wrap gap-2">
             <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">Shopping Cart</h1>
             <button onClick={onClose} className="text-orange-600 dark:text-orange-400 font-semibold hover:underline transition-colors">

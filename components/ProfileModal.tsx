@@ -6,14 +6,16 @@ import MapPinIcon from './icons/MapPinIcon';
 import LockClosedIcon from './icons/LockClosedIcon';
 import PhoneIcon from './icons/PhoneIcon';
 import ArrowLeftIcon from './icons/ArrowLeftIcon';
+import LogoutIcon from './icons/LogoutIcon';
 
 interface ProfilePageProps {
   user: User;
   onBack: () => void;
   onUpdateUser: (updatedUser: User) => void;
+  onLogout: () => void;
 }
 
-const ProfilePage: React.FC<ProfilePageProps> = ({ user, onBack, onUpdateUser }) => {
+const ProfilePage: React.FC<ProfilePageProps> = ({ user, onBack, onUpdateUser, onLogout }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isChangingPassword, setIsChangingPassword] = useState(false);
   
@@ -107,7 +109,7 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ user, onBack, onUpdateUser })
   )
 
   return (
-    <div className="animate-fadeIn max-w-2xl mx-auto">
+    <div className="animate-fadeIn w-full">
         <div className="flex justify-between items-center mb-6 flex-wrap gap-2">
             <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
                 <UserIcon className="w-8 h-8 text-orange-500" />
@@ -193,6 +195,15 @@ const ProfilePage: React.FC<ProfilePageProps> = ({ user, onBack, onUpdateUser })
                     )}
                 </div>
             )}
+            <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+                <button
+                    onClick={onLogout}
+                    className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-3 transition-colors rounded-md"
+                >
+                    <LogoutIcon className="w-5 h-5" />
+                    Log Out
+                </button>
+            </div>
       </div>
     </div>
   );

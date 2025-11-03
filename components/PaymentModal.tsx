@@ -24,7 +24,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ user, cartItems, onBack, on
   }
 
   return (
-    <div className="animate-fadeIn max-w-3xl mx-auto">
+    <div className="animate-fadeIn w-full">
         <div className="flex justify-between items-center mb-6 flex-wrap gap-2">
             <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">Checkout</h1>
             <button onClick={onBack} className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 font-semibold transition-colors group">
