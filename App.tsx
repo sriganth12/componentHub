@@ -1,46 +1,46 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import type { Brand, ComponentItem, CartItem, Order, User, OrderStatus, DeliveryOption, WarrantyClaim, ReturnRequest, WarrantyClaimStatus, ReturnRequestStatus, Review } from './types';
-import { BRANDS_DATA, DELIVERY_OPTIONS, ORDER_STATUS_PROGRESSION, WARRANTY_STATUS_PROGRESSION, RETURN_STATUS_PROGRESSION } from './constants';
+import type { Brand, ComponentItem, CartItem, Order, User, OrderStatus, DeliveryOption, WarrantyClaim, ReturnRequest, WarrantyClaimStatus, ReturnRequestStatus, Review, FlatComponentItem } from './types';
+import { BRANDS_DATA, DELIVERY_OPTIONS, ORDER_STATUS_PROGRESSION, WARRANTY_STATUS_PROGRESSION, RETURN_STATUS_PROGRESSION, REVIEWS_DATA } from './constants';
 import Header from './components/Header';
 import BrandCard from './components/RestaurantCard';
-import BrandComponentsModal from './components/RestaurantMenuModal';
+import BrandComponentsView from './components/BrandComponentsView';
 import Cart from './components/Cart';
-import PaymentModal from './components/PaymentModal';
-import OrderConfirmationModal from './components/OrderConfirmationModal';
-import PlacedOrdersModal from './components/PlacedOrdersModal';
-import LoginRegisterModal from './components/LoginRegisterModal';
-import ProfileModal from './components/ProfileModal';
-import PaymentMethodModal from './components/PaymentMethodModal';
-import WelcomeScreen from './components/WelcomeScreen';
-import ReviewModal from './components/ReviewModal';
+import CheckoutPage from './components/PaymentModal';
+import OrderConfirmationPage from './components/OrderConfirmationModal';
+import OrdersPage from './components/PlacedOrdersModal';
+import LoginPage from './components/LoginRegisterModal';
+import RegisterPage from './components/RegisterPage';
+import ProfilePage from './components/ProfileModal';
+import PaymentMethodPage, { PaymentMethod } from './components/PaymentMethodModal';
+import CardDetailsPage from './components/CardDetailsModal';
+import ReviewPage from './components/ReviewModal';
+import CarouselBanner from './components/CarouselBanner';
+import MobileIcon from './components/icons/MobileIcon';
+import TvIcon from './components/icons/TvIcon';
+import LaptopIcon from './components/icons/LaptopIcon';
+import WatchIcon from './components/icons/WatchIcon';
+import CancelOrderPage from './components/CancelOrderConfirmationModal';
+import WarrantyClaimPage from './components/WarrantyClaimModal';
+import ReturnItemPage from './components/ReturnItemModal';
+import TrackOrderPage from './components/TrackOrderModal';
+import WarrantyConfirmationPage from './components/WarrantyConfirmationModal';
+import ReturnConfirmationPage from './components/ReturnConfirmationModal';
 
-type View = 'brands' | 'cart';
-type AuthStatus = 'unauthenticated' | 'guest' | 'authenticated';
+
+type View = 'brands' | 'cart' | 'brandComponents' | 'checkout' | 'paymentMethods' | 'cardDetails' | 'orderConfirmation' | 'orders' | 'profile' | 'login' | 'register' | 'review' | 'cancelOrder' | 'warrantyClaim' | 'returnItem' | 'trackOrder' | 'warrantyConfirmation' | 'returnConfirmation';
+type AuthStatus = 'guest' | 'authenticated';
 
 const App: React.FC = () => {
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    if (typeof window !== 'undefined') {
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark';
-      }
-    }
-    return 'light';
-  });
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [selectedBrand, setSelectedBrand] = useState<Brand | null>(null);
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
-  const [isPaymentMethodModalOpen, setIsPaymentMethodModalOpen] = useState(false);
-  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
-  const [isOrdersModalOpen, setIsOrdersModalOpen] = useState(false);
-  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [placedOrders, setPlacedOrders] = useState<Order[]>([]);
   const [view, setView] = useState<View>('brands');
+  const [previousView, setPreviousView] = useState<View>('brands');
   
-  const [authStatus, setAuthStatus] = useState<AuthStatus>('unauthenticated');
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [loginRedirect, setLoginRedirect] = useState<(() => void) | null>(null);
+  const [authStatus, setAuthStatus] = useState<AuthStatus>('guest');
 
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [users, setUsers] = useState<User[]>([]);
@@ -49,8 +49,40 @@ const App: React.FC = () => {
   const [warrantyClaims, setWarrantyClaims] = useState<WarrantyClaim[]>([]);
   const [returnRequests, setReturnRequests] = useState<ReturnRequest[]>([]);
   
-  const [reviews, setReviews] = useState<Review[]>([]);
+  const [reviews, setReviews] = useState<Review[]>(REVIEWS_DATA);
   const [itemToReview, setItemToReview] = useState<ComponentItem | null>(null);
+
+  const [orderToCancel, setOrderToCancel] = useState<Order | null>(null);
+  const [claimInfo, setClaimInfo] = useState<{ item: ComponentItem; orderId: string } | null>(null);
+  const [orderToTrack, setOrderToTrack] = useState<Order | null>(null);
+  const [returnInfo, setReturnInfo] = useState<{ item: ComponentItem; orderId: string } | null>(null);
+
+  
+  const groupedBrands = useMemo(() => {
+    const groups: { [key: string]: Brand[] } = {
+        'Mobile': [],
+        'TV': [],
+        'Laptop': [],
+        'Watch': [],
+    };
+
+    BRANDS_DATA.forEach(brand => {
+        const componentCategory = brand.components.length > 0 ? brand.category : 'Mobile';
+        const categoryKey = ['Premium', 'Mid-Range', 'Value'].includes(componentCategory) ? 'Mobile' : componentCategory;
+
+        if (groups[categoryKey]) {
+            groups[categoryKey].push(brand);
+        }
+    });
+
+    // Ensure the order is consistent
+    return {
+        'Mobile': groups['Mobile'],
+        'TV': groups['TV'],
+        'Laptop': groups['Laptop'],
+        'Watch': groups['Watch'],
+    };
+  }, []);
 
 
   useEffect(() => {
@@ -170,8 +202,16 @@ const App: React.FC = () => {
 
   const handleProceedToPayment = (deliveryOption: DeliveryOption) => {
     setPendingDeliveryOption(deliveryOption);
-    setIsPaymentModalOpen(false);
-    setIsPaymentMethodModalOpen(true);
+    setView('paymentMethods');
+  };
+
+  const handlePaymentMethodConfirm = (method: PaymentMethod) => {
+    if (method === 'card') {
+      setView('cardDetails');
+    } else {
+      // For COD, Paypal, etc., confirm immediately.
+      handleConfirmPayment();
+    }
   };
 
   const handleConfirmPayment = () => {
@@ -193,8 +233,7 @@ const App: React.FC = () => {
     setPlacedOrders(prev => [newOrder, ...prev]);
     setCartItems([]);
     setPendingDeliveryOption(null);
-    setIsPaymentMethodModalOpen(false);
-    setIsConfirmationModalOpen(true);
+    setView('orderConfirmation');
   };
   
   const handleCancelOrder = (orderId: string, reason: string) => {
@@ -203,6 +242,7 @@ const App: React.FC = () => {
         ? {...order, status: 'Cancelled', cancellationReason: reason} 
         : order
     ));
+    setView('orders');
   };
   
   const handleWarrantySubmit = (item: ComponentItem, orderId: string, description: string) => {
@@ -217,6 +257,7 @@ const App: React.FC = () => {
         userId: currentUser.id,
     };
     setWarrantyClaims(prev => [newClaim, ...prev]);
+    setView('warrantyConfirmation');
   };
 
   const handleReturnSubmit = (item: ComponentItem, orderId: string, reason: string) => {
@@ -231,6 +272,7 @@ const App: React.FC = () => {
           userId: currentUser.id,
       };
       setReturnRequests(prev => [newRequest, ...prev]);
+      setView('returnConfirmation');
   };
   
   const handleReviewSubmit = (componentId: number, rating: number, comment: string) => {
@@ -243,9 +285,11 @@ const App: React.FC = () => {
         userId: currentUser.id,
         userName: currentUser.name,
         date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+        verifiedPurchase: true,
     };
     setReviews(prev => [newReview, ...prev]);
-    setItemToReview(null); // Close modal
+    setItemToReview(null);
+    setView('orders');
   };
 
   const handleRegister = (newUser: Omit<User, 'id'>) => {
@@ -253,11 +297,7 @@ const App: React.FC = () => {
     setUsers(prev => [...prev, userWithId]);
     setCurrentUser(userWithId);
     setAuthStatus('authenticated');
-    setIsLoginModalOpen(false);
-    if (loginRedirect) {
-      loginRedirect();
-      setLoginRedirect(null);
-    }
+    setView(previousView);
   };
 
   const handleLogin = (credentials: {email: string, password: string}) => {
@@ -266,11 +306,7 @@ const App: React.FC = () => {
     if(user) {
       setCurrentUser(user);
       setAuthStatus('authenticated');
-      setIsLoginModalOpen(false);
-      if (loginRedirect) {
-        loginRedirect();
-        setLoginRedirect(null);
-      }
+      setView(previousView);
       return true;
     }
     return false;
@@ -279,7 +315,8 @@ const App: React.FC = () => {
   const handleLogout = () => {
     setCurrentUser(null);
     setCartItems([]);
-    setAuthStatus('unauthenticated');
+    setAuthStatus('guest');
+    setView('brands');
   };
 
   const handleUpdateUser = (updatedUser: User) => {
@@ -298,145 +335,175 @@ const App: React.FC = () => {
     return subtotal + tax + pendingDeliveryOption.cost;
   }, [cartItems, pendingDeliveryOption]);
   
+  const handleBackToBrands = useCallback(() => {
+    setView('brands');
+    setSelectedBrand(null);
+    window.scrollTo(0, 0);
+  }, []);
+
+  const handleLoginRequired = (targetView: View) => {
+    if (currentUser) {
+        setView(targetView);
+    } else {
+        setPreviousView(view);
+        setView('login');
+    }
+  };
+  
   const renderView = () => {
     switch (view) {
+      case 'login':
+        return <LoginPage onLogin={handleLogin} onNavigateToRegister={() => setView('register')} onClose={() => setView(previousView)} />;
+      case 'register':
+        return <RegisterPage onRegister={handleRegister} onNavigateToLogin={() => setView('login')} onClose={() => setView(previousView)} />;
       case 'cart':
         return (
           <Cart
             cartItems={cartItems}
             onUpdateQuantity={handleUpdateQuantity}
-            onClose={() => setView('brands')}
+            onClose={handleBackToBrands}
             onCheckout={() => {
               if (cartItems.length > 0) {
                  if (currentUser) {
-                  setIsPaymentModalOpen(true);
+                  setView('checkout');
                 } else {
-                  setLoginRedirect(() => () => setIsPaymentModalOpen(true));
-                  setIsLoginModalOpen(true);
+                  setPreviousView('checkout');
+                  setView('login');
                 }
               }
             }}
           />
         );
-      case 'brands':
-      default:
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {BRANDS_DATA.map((brand, index) => (
-              <BrandCard key={brand.id} brand={brand} onClick={() => setSelectedBrand(brand)} index={index} />
-            ))}
-          </div>
-        );
-    }
-  };
-
-  if (authStatus === 'unauthenticated') {
-    return (
-      <>
-        <WelcomeScreen onLoginClick={() => setIsLoginModalOpen(true)} onGuestClick={() => setAuthStatus('guest')} />
-        {isLoginModalOpen && (
-          <LoginRegisterModal 
-            onRegister={handleRegister} 
-            onLogin={handleLogin} 
-            onClose={() => {
-              setIsLoginModalOpen(false);
-              setLoginRedirect(null);
-            }}
-          />
-        )}
-      </>
-    );
-  }
-
-  return (
-    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen font-sans transition-colors duration-300">
-      <Header 
-        cartItemCount={cartItemCount}
-        theme={theme}
-        toggleTheme={toggleTheme}
-        isScrolled={isScrolled}
-        onCartClick={() => setView('cart')}
-        onOrdersClick={() => setIsOrdersModalOpen(true)}
-        onProfileClick={() => setIsProfileModalOpen(true)}
-        onLogout={handleLogout}
-        onLoginClick={() => setIsLoginModalOpen(true)}
-        currentUser={currentUser}
-      />
-
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {renderView()}
-      </main>
-      
-      {selectedBrand && (
-        <BrandComponentsModal
-          brand={selectedBrand}
-          onClose={() => setSelectedBrand(null)}
-          onAddToCart={handleAddToCart}
-          reviews={reviews}
-        />
-      )}
-      
-      {isPaymentModalOpen && currentUser && (
-        <PaymentModal
-          user={currentUser}
-          cartItems={cartItems}
-          onClose={() => setIsPaymentModalOpen(false)}
-          onProceedToPayment={handleProceedToPayment}
-        />
-      )}
-      
-      {isPaymentMethodModalOpen && (
-        <PaymentMethodModal
-          totalAmount={orderTotal}
-          onClose={() => setIsPaymentMethodModalOpen(false)}
-          onConfirmPayment={handleConfirmPayment}
-        />
-      )}
-
-      {isConfirmationModalOpen && (
-        <OrderConfirmationModal onClose={() => setIsConfirmationModalOpen(false)} />
-      )}
-      
-      {isOrdersModalOpen && currentUser && (
-        <PlacedOrdersModal 
+      case 'checkout':
+        return currentUser && <CheckoutPage user={currentUser} cartItems={cartItems} onBack={() => setView('cart')} onProceedToPayment={handleProceedToPayment} />;
+      case 'paymentMethods':
+        return <PaymentMethodPage totalAmount={orderTotal} onBack={() => setView('checkout')} onConfirm={handlePaymentMethodConfirm} />;
+      case 'cardDetails':
+        return <CardDetailsPage totalAmount={orderTotal} onBack={() => setView('paymentMethods')} onConfirmPayment={handleConfirmPayment} />;
+      case 'orderConfirmation':
+        return <OrderConfirmationPage onContinueShopping={handleBackToBrands} />;
+      case 'orders':
+        return currentUser && <OrdersPage 
             orders={placedOrders.filter(o => o.userId === currentUser.id)}
             warrantyClaims={warrantyClaims.filter(c => c.userId === currentUser.id)}
             returnRequests={returnRequests.filter(r => r.userId === currentUser.id)}
             reviews={reviews}
-            onClose={() => setIsOrdersModalOpen(false)}
-            onCancelOrder={handleCancelOrder}
-            onWarrantySubmit={handleWarrantySubmit}
-            onReturnSubmit={handleReturnSubmit}
-            onWriteReview={(item) => setItemToReview(item)}
-        />
-      )}
-      
-      {itemToReview && (
-        <ReviewModal
-            item={itemToReview}
-            onClose={() => setItemToReview(null)}
-            onSubmit={handleReviewSubmit}
+            onBack={handleBackToBrands}
+            onCancelOrder={(order) => { setOrderToCancel(order); setView('cancelOrder'); }}
+            onWarrantySubmit={(item, orderId) => { setClaimInfo({item, orderId}); setView('warrantyClaim'); }}
+            onReturnSubmit={(item, orderId) => { setReturnInfo({item, orderId}); setView('returnItem'); }}
+            onWriteReview={(item) => { setItemToReview(item); setView('review'); }}
+            onTrackOrder={(order) => { setOrderToTrack(order); setView('trackOrder'); }}
+        />;
+      case 'cancelOrder':
+        return orderToCancel && <CancelOrderPage order={orderToCancel} onClose={() => setView('orders')} onConfirm={handleCancelOrder} />;
+      case 'warrantyClaim':
+        return claimInfo && <WarrantyClaimPage item={claimInfo.item} onClose={() => setView('orders')} onSubmit={(desc) => handleWarrantySubmit(claimInfo.item, claimInfo.orderId, desc)} />;
+      case 'warrantyConfirmation':
+        return <WarrantyConfirmationPage onClose={() => setView('orders')} />;
+      case 'returnItem':
+        return returnInfo && <ReturnItemPage item={returnInfo.item} onClose={() => setView('orders')} onSubmit={(reason) => handleReturnSubmit(returnInfo.item, returnInfo.orderId, reason)} />;
+      case 'returnConfirmation':
+        return <ReturnConfirmationPage onClose={() => setView('orders')} />;
+      case 'trackOrder':
+        return orderToTrack && <TrackOrderPage order={orderToTrack} onClose={() => setView('orders')} />;
+      case 'review':
+        return itemToReview && <ReviewPage item={itemToReview} onClose={() => setView('orders')} onSubmit={handleReviewSubmit} />;
+      case 'profile':
+        return currentUser && <ProfilePage user={currentUser} onBack={() => setView('brands')} onUpdateUser={handleUpdateUser} />;
+      case 'brandComponents':
+        return selectedBrand && (
+            <BrandComponentsView
+              brand={selectedBrand}
+              onBack={handleBackToBrands}
+              onAddToCart={handleAddToCart}
+              reviews={reviews}
+            />
+        );
+      case 'brands':
+      default:
+        const categoryHeadings: { [key: string]: string } = {
+          Mobile: 'Mobile Spare Parts',
+          TV: 'TV Spare Parts',
+          Laptop: 'Laptop Spare Parts',
+          Watch: 'Watch Spare Parts',
+        };
+         const categoryIcons: { [key: string]: React.FC<{ className?: string }> } = {
+            Mobile: MobileIcon,
+            TV: TvIcon,
+            Laptop: LaptopIcon,
+            Watch: WatchIcon,
+        };
+
+        return (
+          <>
+            <CarouselBanner />
+            <div className="space-y-8">
+              {Object.entries(groupedBrands).map(([category, brands]) => {
+                 const CategoryIcon = categoryIcons[category];
+                 return (
+                    brands.length > 0 && (
+                    <section key={category} className="bg-white dark:bg-gray-800/50 rounded-2xl shadow-md p-6">
+                        <div className="flex items-center gap-4 mb-6">
+                            {CategoryIcon && (
+                            <div className="bg-orange-100 dark:bg-gray-700 p-3 rounded-full">
+                                <CategoryIcon className="w-8 h-8 text-orange-500 dark:text-orange-400" />
+                            </div>
+                            )}
+                            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+                            {categoryHeadings[category]}
+                            </h2>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {brands.map((brand, index) => (
+                            <BrandCard
+                                key={brand.id}
+                                brand={brand}
+                                onClick={() => {
+                                    setSelectedBrand(brand);
+                                    setView('brandComponents');
+                                    window.scrollTo(0, 0);
+                                }}
+                                index={index}
+                            />
+                        ))}
+                        </div>
+                    </section>
+                    )
+                 );
+              })}
+            </div>
+          </>
+        );
+    }
+  };
+
+  const mainContentHidden = view === 'login' || view === 'register';
+
+  return (
+    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen font-sans transition-colors duration-300">
+      {!mainContentHidden && (
+        <Header 
+            cartItemCount={cartItemCount}
+            theme={theme}
+            toggleTheme={toggleTheme}
+            isScrolled={isScrolled}
+            onLogoClick={handleBackToBrands}
+            onCartClick={() => setView('cart')}
+            onOrdersClick={() => handleLoginRequired('orders')}
+            onProfileClick={() => handleLoginRequired('profile')}
+            onLogout={handleLogout}
+            onLoginClick={() => {
+                setPreviousView(view);
+                setView('login');
+            }}
+            currentUser={currentUser}
         />
       )}
 
-      {isProfileModalOpen && currentUser && (
-        <ProfileModal
-            user={currentUser}
-            onClose={() => setIsProfileModalOpen(false)}
-            onUpdateUser={handleUpdateUser}
-        />
-      )}
-
-      {isLoginModalOpen && (
-        <LoginRegisterModal 
-          onRegister={handleRegister} 
-          onLogin={handleLogin} 
-          onClose={() => {
-            setIsLoginModalOpen(false);
-            setLoginRedirect(null);
-          }}
-        />
-      )}
+      <main className={!mainContentHidden ? "container mx-auto px-4 sm:px-6 lg:px-8 py-8" : ""}>
+        {renderView()}
+      </main>
     </div>
   );
 };

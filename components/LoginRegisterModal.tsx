@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
-import type { User } from '../types';
-import UserIcon from './icons/UserIcon';
 import MailIcon from './icons/MailIcon';
-import MapPinIcon from './icons/MapPinIcon';
 import LockClosedIcon from './icons/LockClosedIcon';
-import XIcon from './icons/XIcon';
 import CheckCircleIcon from './icons/CheckCircleIcon';
 
-interface LoginRegisterModalProps {
-  onRegister: (newUser: Omit<User, 'id'>) => void;
+interface LoginPageProps {
   onLogin: (credentials: { email: string, password: string }) => boolean;
+  onNavigateToRegister: () => void;
   onClose: () => void;
 }
 
-type View = 'login' | 'register' | 'forgotPassword' | 'forgotConfirmation';
+type View = 'login' | 'forgotPassword' | 'forgotConfirmation';
 
 const InputField = ({ icon, ...props }: { icon: React.ReactNode, [key: string]: any }) => (
   <div className="relative">
@@ -28,18 +24,13 @@ const InputField = ({ icon, ...props }: { icon: React.ReactNode, [key: string]: 
   </div>
 );
 
-const LoginRegisterModal: React.FC<LoginRegisterModalProps> = ({ onRegister, onLogin, onClose }) => {
+const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onNavigateToRegister, onClose }) => {
   const [view, setView] = useState<View>('login');
   const [error, setError] = useState('');
 
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
 
-  const [registerName, setRegisterName] = useState('');
-  const [registerEmail, setRegisterEmail] = useState('');
-  const [registerPassword, setRegisterPassword] = useState('');
-  const [registerAddress, setRegisterAddress] = useState('');
-  
   const [forgotEmail, setForgotEmail] = useState('');
 
   const handleLoginSubmit = (e: React.FormEvent) => {
@@ -49,16 +40,6 @@ const LoginRegisterModal: React.FC<LoginRegisterModalProps> = ({ onRegister, onL
     if (!success) {
       setError('Invalid email or password. Please try again.');
     }
-  };
-  
-  const handleRegisterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    onRegister({
-      name: registerName,
-      email: registerEmail,
-      address: registerAddress,
-    });
   };
   
   const handleForgotSubmit = (e: React.FormEvent) => {
@@ -72,21 +53,6 @@ const LoginRegisterModal: React.FC<LoginRegisterModalProps> = ({ onRegister, onL
   
   const renderContent = () => {
       switch (view) {
-        case 'register':
-            return (
-                <form onSubmit={handleRegisterSubmit} className="space-y-4">
-                    <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 text-center mb-2">Create an Account</h2>
-                    <p className="text-center text-gray-500 dark:text-gray-400 mb-6">Get started with your new account.</p>
-                    <InputField icon={<UserIcon className="w-5 h-5 text-gray-400" />} type="text" placeholder="Full Name" value={registerName} onChange={(e) => setRegisterName(e.target.value)} autoFocus />
-                    <InputField icon={<MailIcon className="w-5 h-5 text-gray-400" />} type="email" placeholder="Email Address" value={registerEmail} onChange={(e) => setRegisterEmail(e.target.value)} />
-                    <InputField icon={<LockClosedIcon className="w-5 h-5 text-gray-400" />} type="password" placeholder="Password" value={registerPassword} onChange={(e) => setRegisterPassword(e.target.value)} />
-                    <InputField icon={<MapPinIcon className="w-5 h-5 text-gray-400" />} type="text" placeholder="Delivery Address" value={registerAddress} onChange={(e) => setRegisterAddress(e.target.value)} />
-                    {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-                    <button type="submit" className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-3 rounded-lg hover:from-orange-600 hover:to-red-600 transition-all duration-300 shadow-lg hover:shadow-orange-400/50 transform hover:-translate-y-0.5">
-                        Register
-                    </button>
-                </form>
-            );
         case 'forgotPassword':
             return (
                  <form onSubmit={handleForgotSubmit} className="space-y-6">
@@ -135,33 +101,25 @@ const LoginRegisterModal: React.FC<LoginRegisterModalProps> = ({ onRegister, onL
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4 animate-fadeIn">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-2xl w-full max-w-md animate-scaleIn relative">
-        <button onClick={onClose} className="absolute top-3 right-3 p-1.5 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors z-10">
-            <XIcon className="w-5 h-5" />
+    <div className="min-h-screen flex justify-center items-center p-4 animate-fadeIn bg-gray-50 dark:bg-gray-900">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-2xl w-full max-w-md relative p-8">
+        <button onClick={onClose} className="absolute top-3 right-3 p-1.5 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors z-10" aria-label="Close">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
-        {view !== 'forgotConfirmation' && (
-            <div className="flex border-b border-gray-200 dark:border-gray-700">
-            <button
-                onClick={() => { setView('login'); setError(''); }}
-                className={`w-1/2 p-4 font-semibold text-center transition-colors ${view === 'login' ? 'text-orange-600 border-b-2 border-orange-600' : 'text-gray-500 dark:text-gray-400'}`}
-            >
-                Login
-            </button>
-            <button
-                onClick={() => { setView('register'); setError(''); }}
-                className={`w-1/2 p-4 font-semibold text-center transition-colors ${view === 'register' ? 'text-orange-600 border-b-2 border-orange-600' : 'text-gray-500 dark:text-gray-400'}`}
-            >
-                Register
-            </button>
-            </div>
+
+        {renderContent()}
+
+        {view === 'login' && (
+            <p className="text-center text-sm text-gray-600 dark:text-gray-400 mt-6">
+                Don't have an account?{' '}
+                <button onClick={onNavigateToRegister} className="font-semibold text-orange-600 dark:text-orange-400 hover:underline">
+                    Sign Up
+                </button>
+            </p>
         )}
-        <div className="p-8">
-            {renderContent()}
-        </div>
       </div>
     </div>
   );
 };
 
-export default LoginRegisterModal;
+export default LoginPage;

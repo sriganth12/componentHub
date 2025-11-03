@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import type { Order, OrderStatus } from '../types';
-import XIcon from './icons/XIcon';
 import CheckCircleIcon from './icons/CheckCircleIcon';
 import TruckIcon from './icons/TruckIcon';
 import CogIcon from './icons/CogIcon';
 import MapPinIcon from './icons/MapPinIcon';
+import ArrowLeftIcon from './icons/ArrowLeftIcon';
 
-interface TrackOrderModalProps {
+interface TrackOrderPageProps {
   order: Order;
   onClose: () => void;
 }
@@ -45,44 +45,23 @@ const StatusIcon = ({ status, active }: { status: OrderStatus, active: boolean }
 };
 
 
-const TrackOrderModal: React.FC<TrackOrderModalProps> = ({ order, onClose }) => {
-  const [isClosing, setIsClosing] = useState(false);
+const TrackOrderPage: React.FC<TrackOrderPageProps> = ({ order, onClose }) => {
   const currentStatusIndex = statusSteps.indexOf(order.status);
 
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') handleClose();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
-
-  const handleClose = () => {
-    setIsClosing(true);
-    setTimeout(onClose, 300);
-  };
-
   return (
-    <div 
-        className={`fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4 transition-opacity duration-300 ${isClosing ? 'animate-fadeOut' : 'animate-fadeIn'}`}
-        onClick={handleClose}
-    >
-      <div 
-        className={`bg-white dark:bg-gray-800 rounded-lg shadow-2xl w-full max-w-lg max-h-[90vh] flex flex-col transition-transform duration-300 ${isClosing ? 'animate-scaleOut' : 'animate-scaleIn'}`}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="flex justify-between items-center p-5 border-b dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Track Order</h2>
-          <button onClick={handleClose} className="p-1.5 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-            <XIcon className="w-5 h-5" />
-          </button>
+    <div className="animate-fadeIn max-w-2xl mx-auto">
+        <div className="flex justify-between items-center mb-6 flex-wrap gap-2">
+            <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">Track Order</h1>
+            <button onClick={onClose} className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 font-semibold transition-colors group">
+                <ArrowLeftIcon className="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" />
+                Back to Orders
+            </button>
         </div>
-        
-        <div className="flex-grow overflow-y-auto p-6 space-y-6">
+      
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-2xl w-full p-6 sm:p-8 space-y-8">
           <div className="text-center">
             <p className="text-gray-500 dark:text-gray-400">Order ID: #{order.id.slice(-6)}</p>
-            <p className="text-2xl font-bold text-orange-500 mt-1">{order.status}</p>
+            <p className="text-3xl font-bold text-orange-500 mt-1">{order.status}</p>
           </div>
 
           <div className="flex justify-between items-start pt-4">
@@ -101,9 +80,9 @@ const TrackOrderModal: React.FC<TrackOrderModalProps> = ({ order, onClose }) => 
             ))}
           </div>
 
-          <div className="border-t dark:border-gray-600 pt-4">
-            <h3 className="font-bold text-lg text-gray-800 dark:text-gray-200 mb-2">Order Items</h3>
-            <div className="space-y-2 max-h-48 overflow-y-auto pr-2">
+          <div className="border-t dark:border-gray-600 pt-6">
+            <h3 className="font-bold text-lg text-gray-800 dark:text-gray-200 mb-3">Order Items</h3>
+            <div className="space-y-3 max-h-48 overflow-y-auto pr-2 bg-gray-50 dark:bg-gray-900/40 p-4 rounded-lg">
                 {order.items.map(item => (
                     <div key={item.id} className="flex justify-between items-center text-sm">
                         <span className="text-gray-600 dark:text-gray-300">{item.name} (x{item.quantity})</span>
@@ -113,9 +92,8 @@ const TrackOrderModal: React.FC<TrackOrderModalProps> = ({ order, onClose }) => 
             </div>
           </div>
         </div>
-      </div>
     </div>
   );
 };
 
-export default TrackOrderModal;
+export default TrackOrderPage;

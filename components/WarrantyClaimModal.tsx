@@ -1,30 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import type { ComponentItem } from '../types';
-import XIcon from './icons/XIcon';
 import ShieldCheckIcon from './icons/ShieldCheckIcon';
+import ArrowLeftIcon from './icons/ArrowLeftIcon';
 
-interface WarrantyClaimModalProps {
+interface WarrantyClaimPageProps {
   item: ComponentItem;
   onClose: () => void;
   onSubmit: (description: string) => void;
 }
 
-const WarrantyClaimModal: React.FC<WarrantyClaimModalProps> = ({ item, onClose, onSubmit }) => {
-  const [isClosing, setIsClosing] = useState(false);
+const WarrantyClaimPage: React.FC<WarrantyClaimPageProps> = ({ item, onClose, onSubmit }) => {
   const [description, setDescription] = useState('');
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') handleClose();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  const handleClose = () => {
-    setIsClosing(true);
-    setTimeout(onClose, 300);
-  };
 
   const handleSubmit = () => {
     if (!description.trim()) return;
@@ -32,25 +18,20 @@ const WarrantyClaimModal: React.FC<WarrantyClaimModalProps> = ({ item, onClose, 
   };
 
   return (
-    <div 
-        className={`fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4 transition-opacity duration-300 ${isClosing ? 'animate-fadeOut' : 'animate-fadeIn'}`}
-        onClick={handleClose}
-    >
-      <div 
-        className={`bg-white dark:bg-gray-800 rounded-lg shadow-2xl w-full max-w-lg max-h-[90vh] flex flex-col transition-transform duration-300 ${isClosing ? 'animate-scaleOut' : 'animate-scaleIn'}`}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="flex justify-between items-center p-5 border-b dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-            <ShieldCheckIcon className="w-7 h-7 text-yellow-500" />
-            Warranty Claim
-          </h2>
-          <button onClick={handleClose} className="p-1.5 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-            <XIcon className="w-5 h-5" />
-          </button>
-        </div>
-        
-        <div className="flex-grow overflow-y-auto p-6 space-y-4">
+    <div className="animate-fadeIn max-w-2xl mx-auto">
+      <div className="flex justify-between items-center mb-6 flex-wrap gap-2">
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
+          <ShieldCheckIcon className="w-8 h-8 text-yellow-500" />
+          Warranty Claim
+        </h1>
+        <button onClick={onClose} className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 font-semibold transition-colors group">
+            <ArrowLeftIcon className="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" />
+            Back to Orders
+        </button>
+      </div>
+      
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-2xl w-full flex flex-col">
+        <div className="p-6 sm:p-8 space-y-4">
           <p className="text-gray-700 dark:text-gray-300">You are filing a claim for: <span className="font-bold">{item.name}</span></p>
           
           <div>
@@ -82,4 +63,4 @@ const WarrantyClaimModal: React.FC<WarrantyClaimModalProps> = ({ item, onClose, 
   );
 };
 
-export default WarrantyClaimModal;
+export default WarrantyClaimPage;

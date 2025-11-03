@@ -1,42 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import XIcon from './icons/XIcon';
+import React, { useState } from 'react';
 import CreditCardIcon from './icons/CreditCardIcon';
 import PaypalIcon from './icons/PaypalIcon';
 import GooglePayIcon from './icons/GooglePayIcon';
 import ApplePayIcon from './icons/ApplePayIcon';
 import CashIcon from './icons/CashIcon';
+import ArrowLeftIcon from './icons/ArrowLeftIcon';
 
-interface PaymentMethodModalProps {
+interface PaymentMethodPageProps {
   totalAmount: number;
-  onClose: () => void;
-  onConfirmPayment: () => void;
+  onBack: () => void;
+  onConfirm: (method: PaymentMethod) => void;
 }
 
-type PaymentMethod = 'card' | 'paypal' | 'google' | 'apple' | 'cod';
+export type PaymentMethod = 'card' | 'paypal' | 'google' | 'apple' | 'cod';
 
-const PaymentMethodModal: React.FC<PaymentMethodModalProps> = ({ totalAmount, onClose, onConfirmPayment }) => {
-  const [isClosing, setIsClosing] = useState(false);
+const PaymentMethodPage: React.FC<PaymentMethodPageProps> = ({ totalAmount, onBack, onConfirm }) => {
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>('card');
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        handleClose();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  const handleClose = () => {
-    setIsClosing(true);
-    setTimeout(onClose, 300);
-  };
-
-  const handleConfirm = () => {
-    setIsClosing(true);
-    setTimeout(onConfirmPayment, 300);
-  };
 
   const paymentOptions = [
     { id: 'card', name: 'Credit / Debit Card', icon: <CreditCardIcon className="w-6 h-6" /> },
@@ -47,22 +26,17 @@ const PaymentMethodModal: React.FC<PaymentMethodModalProps> = ({ totalAmount, on
   ] as const;
 
   return (
-    <div 
-        className={`fixed inset-0 bg-black bg-opacity-60 z-50 flex justify-center items-center p-4 transition-opacity duration-300 ${isClosing ? 'animate-fadeOut' : 'animate-fadeIn'}`}
-        onClick={handleClose}
-    >
-      <div 
-        className={`bg-white dark:bg-gray-800 rounded-lg shadow-2xl w-full max-w-md max-h-[90vh] flex flex-col transition-transform duration-300 ${isClosing ? 'animate-scaleOut' : 'animate-scaleIn'}`}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="flex justify-between items-center p-5 border-b dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Choose a Payment Method</h2>
-          <button onClick={handleClose} className="p-1.5 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-            <XIcon className="w-5 h-5" />
-          </button>
-        </div>
-        
-        <div className="flex-grow overflow-y-auto p-6 space-y-4">
+    <div className="animate-fadeIn max-w-2xl mx-auto">
+      <div className="flex justify-between items-center mb-6 flex-wrap gap-2">
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">Payment Method</h1>
+        <button onClick={onBack} className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 font-semibold transition-colors group">
+            <ArrowLeftIcon className="w-5 h-5 transform group-hover:-translate-x-1 transition-transform" />
+            Back to Details
+        </button>
+      </div>
+
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl">
+        <div className="p-6 sm:p-8 space-y-4">
           {paymentOptions.map(option => (
             <button
               key={option.id}
@@ -84,13 +58,13 @@ const PaymentMethodModal: React.FC<PaymentMethodModalProps> = ({ totalAmount, on
           ))}
         </div>
 
-        <div className="p-6 border-t dark:border-gray-700 space-y-4">
+        <div className="p-6 sm:p-8 border-t dark:border-gray-700 space-y-4">
             <div className="flex justify-between font-bold text-xl text-gray-800 dark:text-gray-100">
                 <span>Order Total</span>
                 <span>₹{totalAmount.toFixed(2)}</span>
             </div>
             <button 
-                onClick={handleConfirm}
+                onClick={() => onConfirm(selectedMethod)}
                 className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-3 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-orange-400/50 transform hover:-translate-y-0.5"
             >
                 Confirm & Pay
@@ -101,4 +75,4 @@ const PaymentMethodModal: React.FC<PaymentMethodModalProps> = ({ totalAmount, on
   );
 };
 
-export default PaymentMethodModal;
+export default PaymentMethodPage;

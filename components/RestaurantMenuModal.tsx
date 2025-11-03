@@ -3,7 +3,7 @@ import type { Brand, ComponentItem, Review } from '../types';
 import StarRating from './StarRating';
 import InfoIcon from './icons/InfoIcon';
 import ClipboardListIcon from './icons/ClipboardListIcon';
-import ChatAlt2Icon from './icons/ChatAlt2Icon';
+import StarIcon from './icons/StarIcon';
 import CalendarIcon from './icons/CalendarIcon';
 
 interface BrandComponentsModalProps {
@@ -70,7 +70,7 @@ const BrandComponentsModal: React.FC<BrandComponentsModalProps> = ({ brand, revi
                 <div className="flex border-b border-gray-200 dark:border-gray-700 mb-4">
                     <TabButton tabName="details" label="Details" icon={<InfoIcon className="w-5 h-5"/>} />
                     <TabButton tabName="specs" label="Specs" icon={<ClipboardListIcon className="w-5 h-5"/>} />
-                    <TabButton tabName="reviews" label="Reviews" icon={<ChatAlt2Icon className="w-5 h-5"/>} count={componentReviews.length}/>
+                    <TabButton tabName="reviews" label="Reviews" icon={<StarIcon className="w-5 h-5"/>} count={componentReviews.length}/>
                 </div>
 
                 {activeTab === 'details' && (

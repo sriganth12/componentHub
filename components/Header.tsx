@@ -11,6 +11,7 @@ interface HeaderProps {
   theme: 'light' | 'dark';
   toggleTheme: () => void;
   isScrolled: boolean;
+  onLogoClick: () => void;
   onCartClick: () => void;
   onOrdersClick: () => void;
   onProfileClick: () => void;
@@ -19,7 +20,7 @@ interface HeaderProps {
   currentUser: User | null;
 }
 
-const Header: React.FC<HeaderProps> = ({ cartItemCount, theme, toggleTheme, isScrolled, onCartClick, onOrdersClick, onProfileClick, onLogout, onLoginClick, currentUser }) => {
+const Header: React.FC<HeaderProps> = ({ cartItemCount, theme, toggleTheme, isScrolled, onLogoClick, onCartClick, onOrdersClick, onProfileClick, onLogout, onLoginClick, currentUser }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -41,9 +42,11 @@ const Header: React.FC<HeaderProps> = ({ cartItemCount, theme, toggleTheme, isSc
     }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-gray-100 tracking-tight">
-            Component<span className="text-orange-600">Hub</span>
-          </h1>
+          <button onClick={onLogoClick} className="focus:outline-none focus:ring-2 focus:ring-orange-500 rounded-md -ml-2 p-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-gray-100 tracking-tight">
+              Component<span className="text-orange-600">Hub</span>
+            </h1>
+          </button>
           <div className="flex items-center space-x-2 sm:space-x-4">
             <ThemeSwitcher theme={theme} toggleTheme={toggleTheme} />
             <button

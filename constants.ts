@@ -1,5 +1,8 @@
-import type { Brand, DeliveryOption, WarrantyClaimStatus, ReturnRequestStatus, OrderStatus } from './types';
+import type { Brand, DeliveryOption, WarrantyClaimStatus, ReturnRequestStatus, OrderStatus, Review } from './types';
 import MobileIcon from './components/icons/MobileIcon';
+import TvIcon from './components/icons/TvIcon';
+import LaptopIcon from './components/icons/LaptopIcon';
+import WatchIcon from './components/icons/WatchIcon';
 
 export const BRANDS_DATA: Brand[] = [
   {
@@ -10,14 +13,17 @@ export const BRANDS_DATA: Brand[] = [
     shippingTime: 2,
     icon: MobileIcon,
     components: [
-      { id: 101, name: 'iPhone 14 Pro Screen', description: 'Original OEM Super Retina XDR display for the iPhone 14 Pro.', price: 27999, icon: MobileIcon, compatibility: ['iPhone 14 Pro'], warrantyPeriod: '1 Year', specifications: { Type: 'LTPO Super Retina XDR OLED', Size: '6.1 inches', Resolution: '1179 x 2556 pixels' } },
-      { id: 102, name: 'iPhone 13 Battery', description: 'High-capacity replacement battery with zero cycles.', price: 7199, icon: MobileIcon, compatibility: ['iPhone 13', 'iPhone 13 Pro'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Ion', Capacity: '3240 mAh', Voltage: '3.83 V' } },
-      { id: 103, name: 'iPhone 12 Camera Module', description: 'Dual-camera system replacement for the main wide and ultra-wide cameras.', price: 10360, icon: MobileIcon, compatibility: ['iPhone 12'], warrantyPeriod: '1 Year', specifications: { Main: '12 MP, f/1.6', UltraWide: '12 MP, f/2.4', Video: '4K@24/30/60fps' } },
-      { id: 104, name: 'iPhone 14 Battery', description: 'Genuine 3279mAh replacement battery for the iPhone 14.', price: 7899, icon: MobileIcon, compatibility: ['iPhone 14'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Ion', Capacity: '3279 mAh', Voltage: '3.83 V' } },
-      { id: 105, name: 'iPhone 11 Charging Port', description: 'Lightning connector and microphone assembly replacement.', price: 2899, icon: MobileIcon, compatibility: ['iPhone 11'], warrantyPeriod: '3 Months', specifications: { Connector: 'Lightning', Audio: 'Stereo Microphone included' } },
-      { id: 106, name: 'iPhone 13 Back Glass', description: 'Ceramic Shield back glass panel with MagSafe magnets.', price: 4500, icon: MobileIcon, compatibility: ['iPhone 13'], warrantyPeriod: 'Not Applicable', specifications: { Material: 'Ceramic Shield', Features: 'Embedded MagSafe magnet array' } },
-      { id: 107, name: 'iPhone SE (2022) Speaker', description: 'Earpiece speaker and sensor assembly.', price: 2500, icon: MobileIcon, compatibility: ['iPhone SE (2022)'], warrantyPeriod: '6 Months', specifications: { Type: 'Earpiece Speaker', Features: 'Proximity sensor assembly' } },
-      { id: 108, name: 'iPhone 14 Pro Max Battery', description: 'Genuine 4323mAh replacement battery.', price: 8500, icon: MobileIcon, compatibility: ['iPhone 14 Pro Max'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Ion', Capacity: '4323 mAh', Voltage: '3.83 V' } },
+      { id: 101, name: 'iPhone 14 Pro Screen', description: 'Original OEM Super Retina XDR display for the iPhone 14 Pro, featuring ProMotion technology and Ceramic Shield front for unparalleled durability and visual performance.', price: 27999, icon: MobileIcon, compatibility: ['iPhone 14 Pro'], warrantyPeriod: '1 Year', specifications: { Type: 'LTPO Super Retina XDR OLED', Size: '6.1 inches', Resolution: '1179 x 2556 pixels', 'Model Number': 'A2890', SKU: 'IP14PSCR', Weight: '35g' }, inTheBox: ['1x Screen Assembly', '1x Waterproof Adhesive', '1x Pentalobe Screwdriver', '1x Suction Cup'], keyFeatures: ['ProMotion technology', 'True Tone display', 'Haptic Touch', 'Ceramic Shield front'] },
+      { id: 102, name: 'iPhone 13 Battery', description: 'High-capacity replacement battery with zero cycles to restore your iPhone 13\'s battery life to its original glory.', price: 7199, icon: MobileIcon, compatibility: ['iPhone 13', 'iPhone 13 Pro'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Ion', Capacity: '3240 mAh', Voltage: '3.83 V', SKU: 'IP13BAT' }, inTheBox: ['1x Battery', '1x Adhesive Strips'], keyFeatures: ['Zero cycle count', 'OEM-grade cells', 'Restores original battery life'] },
+      { id: 103, name: 'iPhone 12 Camera Module', description: 'Dual-camera system replacement for the main wide and ultra-wide cameras.', price: 10360, icon: MobileIcon, compatibility: ['iPhone 12'], warrantyPeriod: '1 Year', specifications: { Main: '12 MP, f/1.6', UltraWide: '12 MP, f/2.4', Video: '4K@24/30/60fps', SKU: 'IP12CAM' }, inTheBox: ['1x Camera Module'], keyFeatures: ['Night mode', 'Deep Fusion', 'Smart HDR 3'] },
+      { id: 104, name: 'iPhone 14 Battery', description: 'Genuine 3279mAh replacement battery for the iPhone 14.', price: 7899, icon: MobileIcon, compatibility: ['iPhone 14'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Ion', Capacity: '3279 mAh', Voltage: '3.83 V', SKU: 'IP14BAT' }, inTheBox: ['1x Battery', '1x Adhesive Strips'], keyFeatures: ['Zero cycle count', 'Genuine OEM part'] },
+      { id: 105, name: 'iPhone 11 Charging Port', description: 'Lightning connector and microphone assembly replacement.', price: 2899, icon: MobileIcon, compatibility: ['iPhone 11'], warrantyPeriod: '3 Months', specifications: { Connector: 'Lightning', Audio: 'Stereo Microphone included', SKU: 'IP11CP' }, inTheBox: ['1x Charging Port Flex Cable'], keyFeatures: ['Fixes charging issues', 'Restores microphone function'] },
+      { id: 106, name: 'iPhone 13 Back Glass', description: 'Ceramic Shield back glass panel with MagSafe magnets.', price: 4500, icon: MobileIcon, compatibility: ['iPhone 13'], warrantyPeriod: 'Not Applicable', specifications: { Material: 'Ceramic Shield', Features: 'Embedded MagSafe magnet array', SKU: 'IP13BG' }, inTheBox: ['1x Back Glass Panel', 'Adhesive'], keyFeatures: ['Toughest glass in a smartphone', 'Supports MagSafe accessories'] },
+      { id: 107, name: 'iPhone SE (2022) Speaker', description: 'Earpiece speaker and sensor assembly.', price: 2500, icon: MobileIcon, compatibility: ['iPhone SE (2022)'], warrantyPeriod: '6 Months', specifications: { Type: 'Earpiece Speaker', Features: 'Proximity sensor assembly', SKU: 'IPSE22SP' }, inTheBox: ['1x Earpiece Speaker Assembly'], keyFeatures: ['Restores call audio', 'Fixes proximity sensor issues'] },
+      { id: 108, name: 'iPhone 14 Pro Max Battery', description: 'Genuine 4323mAh replacement battery.', price: 8500, icon: MobileIcon, compatibility: ['iPhone 14 Pro Max'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Ion', Capacity: '4323 mAh', Voltage: '3.83 V', SKU: 'IP14PMBAT' }, inTheBox: ['1x Battery', '1x Adhesive Strips'], keyFeatures: ['Highest capacity iPhone battery', 'OEM quality'] },
+      { id: 109, name: 'iPhone 13 Taptic Engine', description: 'Haptic feedback motor for the iPhone 13 series.', price: 3200, icon: MobileIcon, compatibility: ['iPhone 13', 'iPhone 13 Pro'], warrantyPeriod: '6 Months', specifications: { Type: 'Linear Actuator', SKU: 'IP13TAPTIC' }, inTheBox: ['1x Taptic Engine Module'], keyFeatures: ['Precise haptic feedback', 'Restores system vibrations'] },
+      { id: 110, name: 'MacBook Air M1 Battery', description: 'A12377 replacement battery for MacBook Air M1 2020.', price: 9500, icon: LaptopIcon, compatibility: ['MacBook Air (M1, 2020)'], warrantyPeriod: '1 Year', specifications: { Capacity: '49.9 Wh', Type: 'Li-Po', SKU: 'MBA-M1-BAT' }, inTheBox: ['1x Battery', '2x Screwdrivers'], keyFeatures: ['OEM cycle count', 'Restores full battery capacity'] },
+      { id: 111, name: 'iPad Pro 11" Display (3rd Gen)', description: 'Liquid Retina display for the iPad Pro 11-inch.', price: 24000, icon: LaptopIcon, compatibility: ['iPad Pro 11" (3rd Gen)'], warrantyPeriod: '1 Year', specifications: { Type: 'Liquid Retina IPS', Size: '11 inches', Resolution: '2388 x 1668' }, inTheBox: ['1x Display Assembly', 'Adhesive Strips'], keyFeatures: ['ProMotion technology', 'True Tone', 'P3 wide color'] },
     ],
   },
   {
@@ -28,14 +34,17 @@ export const BRANDS_DATA: Brand[] = [
     shippingTime: 1,
     icon: MobileIcon,
     components: [
-      { id: 201, name: 'Galaxy S23 Ultra Screen', description: 'Dynamic AMOLED 2X display with frame assembly.', price: 31199, icon: MobileIcon, compatibility: ['Galaxy S23 Ultra'], warrantyPeriod: '1 Year', specifications: { Type: 'Dynamic AMOLED 2X', Size: '6.8 inches', Resolution: '1440 x 3088 pixels' } },
-      { id: 202, name: 'Galaxy S22 Battery', description: 'Genuine 3700mAh replacement battery for the Samsung Galaxy S22.', price: 6040, icon: MobileIcon, compatibility: ['Galaxy S22'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Ion', Capacity: '3700 mAh', Charging: '25W Wired' } },
-      { id: 203, name: 'Galaxy Note 20 Charging Port', description: 'USB-C charging port flex cable replacement.', price: 3679, icon: MobileIcon, compatibility: ['Galaxy Note 20'], warrantyPeriod: '3 Months', specifications: { Connector: 'USB Type-C 3.2', Features: 'OTG Support' } },
-      { id: 204, name: 'Galaxy A53 Battery', description: '5000mAh high-capacity battery for the Galaxy A53 5G.', price: 4500, icon: MobileIcon, compatibility: ['Galaxy A53 5G'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '5000 mAh', Charging: '25W Wired' } },
-      { id: 205, name: 'Galaxy S21 Camera Module', description: 'Triple camera main module for the Galaxy S21.', price: 11500, icon: MobileIcon, compatibility: ['Galaxy S21'], warrantyPeriod: '1 Year', specifications: { Main: '12 MP, f/1.8', Telephoto: '64 MP, f/2.0', UltraWide: '12 MP, f/2.2' } },
-      { id: 206, name: 'Galaxy Z Fold 4 Main Screen', description: '7.6-inch foldable Dynamic AMOLED 2X display.', price: 45000, icon: MobileIcon, compatibility: ['Galaxy Z Fold 4'], warrantyPeriod: '1 Year', specifications: { Type: 'Foldable Dynamic AMOLED 2X', Size: '7.6 inches', Resolution: '1812 x 2176 pixels' } },
-      { id: 207, name: 'Galaxy S23 Back Glass', description: 'Gorilla Glass Victus 2 back panel for S23.', price: 3800, icon: MobileIcon, compatibility: ['Galaxy S23'], warrantyPeriod: 'Not Applicable', specifications: { Material: 'Gorilla Glass Victus 2', Finish: 'Matte' } },
-      { id: 208, name: 'Galaxy Buds 2 Pro Battery', description: 'Replacement battery for charging case.', price: 2800, icon: MobileIcon, compatibility: ['Galaxy Buds 2 Pro Case'], warrantyPeriod: '3 Months', specifications: { Type: 'Li-Ion', Capacity: '515 mAh' } },
+      { id: 201, name: 'Galaxy S23 Ultra Screen', description: 'Dynamic AMOLED 2X display with frame assembly for a seamless repair. Includes the ultrasonic fingerprint sensor for full functionality restoration.', price: 31199, icon: MobileIcon, compatibility: ['Galaxy S23 Ultra'], warrantyPeriod: '1 Year', specifications: { Type: 'Dynamic AMOLED 2X', Size: '6.8 inches', Resolution: '1440 x 3088 pixels', 'Model Number': 'SM-S918', SKU: 'S23USCR' }, inTheBox: ['1x Screen and Frame Assembly', '1x Adhesive Set'], keyFeatures: ['120Hz Refresh Rate', 'HDR10+ support', 'Embedded Fingerprint Sensor', 'S-Pen compatibility'] },
+      { id: 202, name: 'Galaxy S22 Battery', description: 'Genuine 3700mAh replacement battery for the Samsung Galaxy S22.', price: 6040, icon: MobileIcon, compatibility: ['Galaxy S22'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Ion', Capacity: '3700 mAh', Charging: '25W Wired', SKU: 'S22BAT' }, inTheBox: ['1x Battery'], keyFeatures: ['Supports Super Fast Charging', 'OEM original part'] },
+      { id: 203, name: 'Galaxy Note 20 Charging Port', description: 'USB-C charging port flex cable replacement.', price: 3679, icon: MobileIcon, compatibility: ['Galaxy Note 20'], warrantyPeriod: '3 Months', specifications: { Connector: 'USB Type-C 3.2', Features: 'OTG Support', SKU: 'N20CP' }, inTheBox: ['1x Charging Port Flex Cable'], keyFeatures: ['Restores charging and data transfer', 'Includes microphone'] },
+      { id: 204, name: 'Galaxy A53 Battery', description: '5000mAh high-capacity battery for the Galaxy A53 5G.', price: 4500, icon: MobileIcon, compatibility: ['Galaxy A53 5G'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '5000 mAh', Charging: '25W Wired', SKU: 'A53BAT' }, inTheBox: ['1x Battery'], keyFeatures: ['Long-lasting power', 'Supports fast charging'] },
+      { id: 205, name: 'Galaxy S21 Camera Module', description: 'Triple camera main module for the Galaxy S21.', price: 11500, icon: MobileIcon, compatibility: ['Galaxy S21'], warrantyPeriod: '1 Year', specifications: { Main: '12 MP, f/1.8', Telephoto: '64 MP, f/2.0', UltraWide: '12 MP, f/2.2', SKU: 'S21CAM' }, inTheBox: ['1x Triple Camera Assembly'], keyFeatures: ['8K video recording', '30x Space Zoom', 'Optical Image Stabilization'] },
+      { id: 206, name: 'Galaxy Z Fold 4 Main Screen', description: '7.6-inch foldable Dynamic AMOLED 2X display.', price: 45000, icon: MobileIcon, compatibility: ['Galaxy Z Fold 4'], warrantyPeriod: '1 Year', specifications: { Type: 'Foldable Dynamic AMOLED 2X', Size: '7.6 inches', Resolution: '1812 x 2176 pixels', SKU: 'ZF4SCR' }, inTheBox: ['1x Main Screen Assembly'], keyFeatures: ['120Hz adaptive refresh rate', 'Ultra Thin Glass'] },
+      { id: 207, name: 'Galaxy S23 Back Glass', description: 'Gorilla Glass Victus 2 back panel for S23.', price: 3800, icon: MobileIcon, compatibility: ['Galaxy S23'], warrantyPeriod: 'Not Applicable', specifications: { Material: 'Gorilla Glass Victus 2', Finish: 'Matte', SKU: 'S23BG' }, inTheBox: ['1x Back Glass Panel', 'Pre-installed adhesive'], keyFeatures: ['Enhanced drop and scratch resistance', 'Wireless charging compatible'] },
+      { id: 208, name: 'Galaxy Buds 2 Pro Battery', description: 'Replacement battery for charging case.', price: 2800, icon: MobileIcon, compatibility: ['Galaxy Buds 2 Pro Case'], warrantyPeriod: '3 Months', specifications: { Type: 'Li-Ion', Capacity: '515 mAh', SKU: 'BUDS2PBAT' }, inTheBox: ['1x Case Battery'], keyFeatures: ['Restores charging case battery life'] },
+      { id: 209, name: 'S-Pen for S23 Ultra', description: 'Official replacement S-Pen with Bluetooth.', price: 4500, icon: MobileIcon, compatibility: ['Galaxy S23 Ultra'], warrantyPeriod: '3 Months', specifications: { Latency: '2.8ms', Connectivity: 'Bluetooth', SKU: 'S23U-SPEN' }, inTheBox: ['1x S-Pen', 'Replacement tips'], keyFeatures: ['Air Actions support', 'Low latency for natural writing'] },
+      { id: 210, name: 'Galaxy Watch 5 Battery', description: '284mAh battery for Galaxy Watch 5 (40mm).', price: 3800, icon: WatchIcon, compatibility: ['Galaxy Watch 5 (40mm)'], warrantyPeriod: '6 Months', specifications: { Capacity: '284 mAh', Type: 'Li-Ion', SKU: 'GW5-BAT-40' }, inTheBox: ['1x Battery'], keyFeatures: ['Restores original watch battery life'] },
+      { id: 211, name: 'Galaxy Tab S8 Screen', description: '11-inch TFT LCD display for the Galaxy Tab S8.', price: 13000, icon: LaptopIcon, compatibility: ['Galaxy Tab S8'], warrantyPeriod: '1 Year', specifications: { Type: 'TFT LCD', Size: '11.0 inches', Resolution: '1600 x 2560' }, inTheBox: ['1x Display Assembly'], keyFeatures: ['120Hz refresh rate', 'S-Pen support'] },
     ],
   },
   {
@@ -46,13 +55,15 @@ export const BRANDS_DATA: Brand[] = [
     shippingTime: 3,
     icon: MobileIcon,
     components: [
-      { id: 301, name: 'Pixel 7 Pro Screen', description: '6.7-inch OLED display assembly with digitizer.', price: 19999, icon: MobileIcon, compatibility: ['Pixel 7 Pro'], warrantyPeriod: '1 Year', specifications: { Type: 'LTPO AMOLED', Size: '6.7 inches', Resolution: '1440 x 3120 pixels' } },
-      { id: 302, name: 'Pixel 6a Battery', description: 'Original replacement battery to restore your phone\'s life.', price: 5520, icon: MobileIcon, compatibility: ['Pixel 6a'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '4410 mAh', Charging: '18W Wired' } },
-      { id: 303, name: 'Pixel 5 Rear Camera', description: 'Main camera module replacement for the Google Pixel 5.', price: 7960, icon: MobileIcon, compatibility: ['Pixel 5'], warrantyPeriod: '1 Year', specifications: { Main: '12.2 MP, f/1.7', UltraWide: '16 MP, f/2.2' } },
-      { id: 304, name: 'Pixel 7 Battery', description: '4355mAh replacement battery for the Google Pixel 7.', price: 5999, icon: MobileIcon, compatibility: ['Pixel 7'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Ion', Capacity: '4355 mAh', Charging: '20W Wired' } },
-      { id: 305, name: 'Pixel 6 Charging Port', description: 'USB-C charging port assembly for the Pixel 6.', price: 3299, icon: MobileIcon, compatibility: ['Pixel 6'], warrantyPeriod: '3 Months', specifications: { Connector: 'USB Type-C 3.1' } },
-      { id: 306, name: 'Pixel 7a Speaker', description: 'Bottom-firing stereo speaker module.', price: 2900, icon: MobileIcon, compatibility: ['Pixel 7a'], warrantyPeriod: '6 Months', specifications: { Type: 'Stereo Speakers' } },
-      { id: 307, name: 'Pixel 8 Pro Camera Bar Glass', description: 'Replacement glass for the rear camera bar.', price: 2500, icon: MobileIcon, compatibility: ['Pixel 8 Pro'], warrantyPeriod: 'Not Applicable', specifications: { Material: 'Gorilla Glass Victus 2' } },
+      { id: 301, name: 'Pixel 7 Pro Screen', description: '6.7-inch OLED display assembly with digitizer.', price: 19999, icon: MobileIcon, compatibility: ['Pixel 7 Pro'], warrantyPeriod: '1 Year', specifications: { Type: 'LTPO AMOLED', Size: '6.7 inches', Resolution: '1440 x 3120 pixels', SKU: 'P7PSCR' }, inTheBox: ['1x OLED Display Assembly'], keyFeatures: ['LTPO technology', 'Always-on display', 'Corning Gorilla Glass Victus'] },
+      { id: 302, name: 'Pixel 6a Battery', description: 'Original replacement battery to restore your phone\'s life.', price: 5520, icon: MobileIcon, compatibility: ['Pixel 6a'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '4410 mAh', Charging: '18W Wired', SKU: 'P6ABAT' }, inTheBox: ['1x Battery', 'Adhesive'], keyFeatures: ['Adaptive Battery technology', 'Supports fast charging'] },
+      { id: 303, name: 'Pixel 5 Rear Camera', description: 'Main camera module replacement for the Google Pixel 5.', price: 7960, icon: MobileIcon, compatibility: ['Pixel 5'], warrantyPeriod: '1 Year', specifications: { Main: '12.2 MP, f/1.7', UltraWide: '16 MP, f/2.2', SKU: 'P5CAM' }, inTheBox: ['1x Rear Camera Module'], keyFeatures: ['Dual-pixel PDAF', 'Optical + electronic image stabilization'] },
+      { id: 304, name: 'Pixel 7 Battery', description: '4355mAh replacement battery for the Google Pixel 7.', price: 5999, icon: MobileIcon, compatibility: ['Pixel 7'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Ion', Capacity: '4355 mAh', Charging: '20W Wired', SKU: 'P7BAT' }, inTheBox: ['1x Battery', 'Adhesive'], keyFeatures: ['OEM capacity', 'Supports wireless charging'] },
+      { id: 305, name: 'Pixel 6 Charging Port', description: 'USB-C charging port assembly for the Pixel 6.', price: 3299, icon: MobileIcon, compatibility: ['Pixel 6'], warrantyPeriod: '3 Months', specifications: { Connector: 'USB Type-C 3.1', SKU: 'P6CP' }, inTheBox: ['1x Charging Port Flex Cable'], keyFeatures: ['Restores charging functionality'] },
+      { id: 306, name: 'Pixel 7a Speaker', description: 'Bottom-firing stereo speaker module.', price: 2900, icon: MobileIcon, compatibility: ['Pixel 7a'], warrantyPeriod: '6 Months', specifications: { Type: 'Stereo Speakers', SKU: 'P7ASP' }, inTheBox: ['1x Loudspeaker Module'], keyFeatures: ['Restores external audio output'] },
+      { id: 307, name: 'Pixel 8 Pro Camera Bar Glass', description: 'Replacement glass for the rear camera bar.', price: 2500, icon: MobileIcon, compatibility: ['Pixel 8 Pro'], warrantyPeriod: 'Not Applicable', specifications: { Material: 'Gorilla Glass Victus 2', SKU: 'P8PCBG' }, inTheBox: ['1x Camera Bar Glass Lens'], keyFeatures: ['Protects camera lenses from damage'] },
+      { id: 308, name: 'Pixel Watch Battery', description: '294mAh battery for the Google Pixel Watch.', price: 4200, icon: WatchIcon, compatibility: ['Google Pixel Watch'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Ion', Capacity: '294 mAh', SKU: 'GPW1-BAT' }, inTheBox: ['1x Battery', 'Adhesive ring'], keyFeatures: ['Restores original battery life'] },
+      { id: 309, name: 'Pixel Buds Pro Charging Case', description: 'Replacement wireless charging case for Pixel Buds Pro.', price: 4800, icon: MobileIcon, compatibility: ['Pixel Buds Pro'], warrantyPeriod: '3 Months', specifications: { Charging: 'USB-C, Qi Wireless', SKU: 'PBP-CASE' }, inTheBox: ['1x Charging Case'], keyFeatures: ['Wireless charging capable'] },
     ],
   },
   {
@@ -63,13 +74,15 @@ export const BRANDS_DATA: Brand[] = [
     shippingTime: 2,
     icon: MobileIcon,
     components: [
-      { id: 401, name: 'OnePlus 11 Screen', description: 'Fluid AMOLED display with a 120Hz refresh rate. Includes frame.', price: 22399, icon: MobileIcon, compatibility: ['OnePlus 11'], warrantyPeriod: '1 Year', specifications: { Type: 'LTPO3 Fluid AMOLED', Size: '6.7 inches', Resolution: '1440 x 3216 pixels' } },
-      { id: 402, name: 'OnePlus 9 Pro Battery', description: 'High-quality 4500mAh replacement battery.', price: 6800, icon: MobileIcon, compatibility: ['OnePlus 9 Pro'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '4500 mAh', Charging: '65W Wired' } },
-      { id: 403, name: 'OnePlus Nord Charging Port', description: 'Replacement charging port and headphone jack assembly.', price: 3199, icon: MobileIcon, compatibility: ['OnePlus Nord'], warrantyPeriod: '3 Months', specifications: { Connector: 'USB Type-C 2.0', Audio: '3.5mm Jack included' } },
-      { id: 404, name: 'OnePlus 8T Battery', description: 'Dual-cell 4500mAh battery with Warp Charge 65 support.', price: 5200, icon: MobileIcon, compatibility: ['OnePlus 8T'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '4500 mAh', Charging: '65W Wired' } },
-      { id: 405, name: 'OnePlus 10 Pro Camera', description: 'Main camera sensor module developed with Hasselblad.', price: 13500, icon: MobileIcon, compatibility: ['OnePlus 10 Pro'], warrantyPeriod: '1 Year', specifications: { Main: '48 MP, f/1.8', Telephoto: '8 MP, f/2.4', UltraWide: '50 MP, f/2.2' } },
-      { id: 406, name: 'OnePlus 11 Back Glass', description: 'Matte frosted glass back panel.', price: 3200, icon: MobileIcon, compatibility: ['OnePlus 11'], warrantyPeriod: 'Not Applicable', specifications: { Material: 'Gorilla Glass 5', Finish: 'Matte' } },
-      { id: 407, name: 'OnePlus Nord 2 Speaker', description: 'Stereo speaker assembly for clear audio.', price: 2600, icon: MobileIcon, compatibility: ['OnePlus Nord 2'], warrantyPeriod: '6 Months', specifications: { Type: 'Stereo Speakers' } },
+      { id: 401, name: 'OnePlus 11 Screen', description: 'Fluid AMOLED display with a 120Hz refresh rate. Includes frame.', price: 22399, icon: MobileIcon, compatibility: ['OnePlus 11'], warrantyPeriod: '1 Year', specifications: { Type: 'LTPO3 Fluid AMOLED', Size: '6.7 inches', Resolution: '1440 x 3216 pixels' }, inTheBox: ['1x Screen with Frame'], keyFeatures: ['Dolby Vision', 'AOD', 'Corning Gorilla Glass Victus'] },
+      { id: 402, name: 'OnePlus 9 Pro Battery', description: 'High-quality 4500mAh replacement battery.', price: 6800, icon: MobileIcon, compatibility: ['OnePlus 9 Pro'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '4500 mAh', Charging: '65W Wired' }, inTheBox: ['1x Battery'], keyFeatures: ['Supports Warp Charge 65T'] },
+      { id: 403, name: 'OnePlus Nord Charging Port', description: 'Replacement charging port and headphone jack assembly.', price: 3199, icon: MobileIcon, compatibility: ['OnePlus Nord'], warrantyPeriod: '3 Months', specifications: { Connector: 'USB Type-C 2.0', Audio: '3.5mm Jack included' }, inTheBox: ['1x Charging Port Assembly'], keyFeatures: ['Restores charging and headphone audio'] },
+      { id: 404, name: 'OnePlus 8T Battery', description: 'Dual-cell 4500mAh battery with Warp Charge 65 support.', price: 5200, icon: MobileIcon, compatibility: ['OnePlus 8T'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '4500 mAh', Charging: '65W Wired' }, inTheBox: ['1x Battery'], keyFeatures: ['Dual-cell design for faster charging'] },
+      { id: 405, name: 'OnePlus 10 Pro Camera', description: 'Main camera sensor module developed with Hasselblad.', price: 13500, icon: MobileIcon, compatibility: ['OnePlus 10 Pro'], warrantyPeriod: '1 Year', specifications: { Main: '48 MP, f/1.8', Telephoto: '8 MP, f/2.4', UltraWide: '50 MP, f/2.2' }, inTheBox: ['1x Main Camera Module'], keyFeatures: ['Hasselblad Color Calibration', 'Dual-LED flash'] },
+      { id: 406, name: 'OnePlus 11 Back Glass', description: 'Matte frosted glass back panel.', price: 3200, icon: MobileIcon, compatibility: ['OnePlus 11'], warrantyPeriod: 'Not Applicable', specifications: { Material: 'Gorilla Glass 5', Finish: 'Matte' }, inTheBox: ['1x Back Glass Panel', 'Adhesive'], keyFeatures: ['Fingerprint resistant finish'] },
+      { id: 407, name: 'OnePlus Nord 2 Speaker', description: 'Stereo speaker assembly for clear audio.', price: 2600, icon: MobileIcon, compatibility: ['OnePlus Nord 2'], warrantyPeriod: '6 Months', specifications: { Type: 'Stereo Speakers' }, inTheBox: ['1x Loudspeaker', '1x Earpiece Speaker'], keyFeatures: ['Dual stereo speakers for immersive sound'] },
+      { id: 408, name: 'OnePlus Watch Battery', description: '402mAh replacement battery for the OnePlus Watch.', price: 3500, icon: WatchIcon, compatibility: ['OnePlus Watch'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Ion', Capacity: '402 mAh' }, inTheBox: ['1x Battery'], keyFeatures: ['Restores up to 14 days of battery life'] },
+      { id: 409, name: 'OnePlus 9 Pro Alert Slider', description: 'Replacement alert slider switch module.', price: 1500, icon: MobileIcon, compatibility: ['OnePlus 9 Pro'], warrantyPeriod: '3 Months', specifications: { Type: 'Mechanical Switch' }, inTheBox: ['1x Alert Slider Flex Cable'], keyFeatures: ['Restores silent/vibrate/ring functionality'] },
     ],
   },
   {
@@ -80,12 +93,14 @@ export const BRANDS_DATA: Brand[] = [
     shippingTime: 2,
     icon: MobileIcon,
     components: [
-      { id: 501, name: 'Redmi Note 12 Pro Screen', description: '6.67" FHD+ AMOLED DotDisplay for vibrant colors.', price: 8999, icon: MobileIcon, compatibility: ['Redmi Note 12 Pro'], warrantyPeriod: '1 Year', specifications: { Type: 'AMOLED', Size: '6.67 inches', Resolution: '1080 x 2400 pixels' } },
-      { id: 502, name: 'Poco F5 Battery', description: '5000mAh battery to power your gaming sessions.', price: 4299, icon: MobileIcon, compatibility: ['Poco F5'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '5000 mAh', Charging: '67W Wired' } },
-      { id: 503, name: 'Xiaomi 13T Camera Module', description: 'Leica professional main camera module.', price: 15500, icon: MobileIcon, compatibility: ['Xiaomi 13T'], warrantyPeriod: '1 Year', specifications: { Main: '50 MP, f/1.9', Telephoto: '50 MP, f/1.9', UltraWide: '12 MP, f/2.2' } },
-      { id: 504, name: 'Redmi K20 Pro Battery', description: 'Original BN48 4000mAh replacement battery.', price: 3500, icon: MobileIcon, compatibility: ['Redmi K20 Pro', 'Mi 9T Pro'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '4000 mAh', Charging: '27W Wired' } },
-      { id: 505, name: 'Poco X5 Pro Camera', description: '108MP primary camera sensor module.', price: 7800, icon: MobileIcon, compatibility: ['Poco X5 Pro'], warrantyPeriod: '1 Year', specifications: { Main: '108 MP, f/1.9', UltraWide: '8 MP, f/2.2' } },
-      { id: 506, name: 'Redmi Note 11 Speaker', description: 'Earpiece and loudspeaker combo.', price: 1800, icon: MobileIcon, compatibility: ['Redmi Note 11'], warrantyPeriod: '6 Months', specifications: { Type: 'Stereo Speakers' } },
+      { id: 501, name: 'Redmi Note 12 Pro Screen', description: '6.67" FHD+ AMOLED DotDisplay for vibrant colors.', price: 8999, icon: MobileIcon, compatibility: ['Redmi Note 12 Pro'], warrantyPeriod: '1 Year', specifications: { Type: 'AMOLED', Size: '6.67 inches', Resolution: '1080 x 2400 pixels' }, inTheBox: ['1x Screen Assembly'], keyFeatures: ['120Hz Refresh Rate', 'Dolby Vision', 'Corning Gorilla Glass 5'] },
+      { id: 502, name: 'Poco F5 Battery', description: '5000mAh battery to power your gaming sessions.', price: 4299, icon: MobileIcon, compatibility: ['Poco F5'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '5000 mAh', Charging: '67W Wired' }, inTheBox: ['1x Battery'], keyFeatures: ['67W turbo charging support'] },
+      { id: 503, name: 'Xiaomi 13T Camera Module', description: 'Leica professional main camera module.', price: 15500, icon: MobileIcon, compatibility: ['Xiaomi 13T'], warrantyPeriod: '1 Year', specifications: { Main: '50 MP, f/1.9', Telephoto: '50 MP, f/1.9', UltraWide: '12 MP, f/2.2' }, inTheBox: ['1x Main Camera Module'], keyFeatures: ['Leica authentic look', 'Leica vibrant look', '4K video recording'] },
+      { id: 504, name: 'Redmi K20 Pro Battery', description: 'Original BN48 4000mAh replacement battery.', price: 3500, icon: MobileIcon, compatibility: ['Redmi K20 Pro', 'Mi 9T Pro'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '4000 mAh', Charging: '27W Wired' }, inTheBox: ['1x Battery'], keyFeatures: ['Original BN48 model'] },
+      { id: 505, name: 'Poco X5 Pro Camera', description: '108MP primary camera sensor module.', price: 7800, icon: MobileIcon, compatibility: ['Poco X5 Pro'], warrantyPeriod: '1 Year', specifications: { Main: '108 MP, f/1.9', UltraWide: '8 MP, f/2.2' }, inTheBox: ['1x Main Camera Module'], keyFeatures: ['Large 1/1.52" sensor size', '9-in-1 pixel binning'] },
+      { id: 506, name: 'Redmi Note 11 Speaker', description: 'Earpiece and loudspeaker combo.', price: 1800, icon: MobileIcon, compatibility: ['Redmi Note 11'], warrantyPeriod: '6 Months', specifications: { Type: 'Stereo Speakers' }, inTheBox: ['1x Loudspeaker Module'], keyFeatures: ['Dual speakers for stereo sound'] },
+      { id: 507, name: 'Xiaomi Pad 5 Battery', description: '8720mAh large capacity battery for the Xiaomi Pad 5.', price: 5200, icon: LaptopIcon, compatibility: ['Xiaomi Pad 5'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '8720 mAh' }, inTheBox: ['1x Battery'], keyFeatures: ['33W fast charging support'] },
+      { id: 508, name: 'Mi Band 7 Strap', description: 'Official replacement silicone strap for Mi Band 7.', price: 799, icon: WatchIcon, compatibility: ['Mi Band 7', 'Mi Band 6'], warrantyPeriod: 'Not Applicable', specifications: { Material: 'TPU', Color: 'Black' }, inTheBox: ['1x Strap'], keyFeatures: ['Antibacterial strap', 'Multiple color options'] },
     ],
   },
   {
@@ -96,10 +111,12 @@ export const BRANDS_DATA: Brand[] = [
     shippingTime: 3,
     icon: MobileIcon,
     components: [
-      { id: 601, name: 'Moto G Power (2022) Battery', description: '5000mAh battery for up to 3 days of life.', price: 4800, icon: MobileIcon, compatibility: ['Moto G Power (2022)'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '5000 mAh', Charging: '10W Wired' } },
-      { id: 602, name: 'Moto Edge+ (2023) Screen', description: '6.67" pOLED Endless Edge display.', price: 21000, icon: MobileIcon, compatibility: ['Moto Edge+ (2023)'], warrantyPeriod: '1 Year', specifications: { Type: 'OLED', Size: '6.67 inches', Resolution: '1080 x 2400 pixels' } },
-      { id: 603, name: 'Moto G Stylus 5G Camera', description: '50MP main camera module with OIS.', price: 6500, icon: MobileIcon, compatibility: ['Moto G Stylus 5G'], warrantyPeriod: '1 Year', specifications: { Main: '50 MP, f/1.8', UltraWide: '8 MP, f/2.2' } },
-      { id: 604, name: 'Motorola Razr+ Charging Port', description: 'USB-C port for the foldable flagship.', price: 4100, icon: MobileIcon, compatibility: ['Motorola Razr+'], warrantyPeriod: '3 Months', specifications: { Connector: 'USB Type-C 2.0' } },
+      { id: 601, name: 'Moto G Power (2022) Battery', description: '5000mAh battery for up to 3 days of life.', price: 4800, icon: MobileIcon, compatibility: ['Moto G Power (2022)'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '5000 mAh', Charging: '10W Wired' }, inTheBox: ['1x Battery'], keyFeatures: ['Massive 5000mAh capacity'] },
+      { id: 602, name: 'Moto Edge+ (2023) Screen', description: '6.67" pOLED Endless Edge display.', price: 21000, icon: MobileIcon, compatibility: ['Moto Edge+ (2023)'], warrantyPeriod: '1 Year', specifications: { Type: 'OLED', Size: '6.67 inches', Resolution: '1080 x 2400 pixels' }, inTheBox: ['1x Screen Assembly'], keyFeatures: ['165Hz refresh rate', 'HDR10+', 'Curved edges'] },
+      { id: 603, name: 'Moto G Stylus 5G Camera', description: '50MP main camera module with OIS.', price: 6500, icon: MobileIcon, compatibility: ['Moto G Stylus 5G'], warrantyPeriod: '1 Year', specifications: { Main: '50 MP, f/1.8', UltraWide: '8 MP, f/2.2' }, inTheBox: ['1x Main Camera Module'], keyFeatures: ['Optical Image Stabilization (OIS)', 'Quad Pixel technology'] },
+      { id: 604, name: 'Motorola Razr+ Charging Port', description: 'USB-C port for the foldable flagship.', price: 4100, icon: MobileIcon, compatibility: ['Motorola Razr+'], warrantyPeriod: '3 Months', specifications: { Connector: 'USB Type-C 2.0' }, inTheBox: ['1x Charging Port Flex Cable'], keyFeatures: ['Restores charging'] },
+      { id: 605, name: 'Moto 360 (3rd Gen) Battery', description: 'Replacement battery for the Moto 360 smartwatch.', price: 3300, icon: WatchIcon, compatibility: ['Moto 360 (3rd Gen)'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Ion', Capacity: '355 mAh' }, inTheBox: ['1x Battery'], keyFeatures: ['Restores all-day battery life'] },
+      { id: 606, name: 'Motorola Razr+ External Screen', description: '3.6-inch external pOLED display.', price: 9500, icon: MobileIcon, compatibility: ['Motorola Razr+'], warrantyPeriod: '1 Year', specifications: { Type: 'OLED', Size: '3.6 inches', Resolution: '1066 x 1056' }, inTheBox: ['1x External Display Assembly'], keyFeatures: ['144Hz refresh rate', 'Gorilla Glass Victus'] },
     ],
   },
   {
@@ -110,10 +127,12 @@ export const BRANDS_DATA: Brand[] = [
     shippingTime: 4,
     icon: MobileIcon,
     components: [
-      { id: 701, name: 'Nokia G50 Screen', description: '6.82" HD+ display assembly.', price: 7500, icon: MobileIcon, compatibility: ['Nokia G50'], warrantyPeriod: '1 Year', specifications: { Type: 'IPS LCD', Size: '6.82 inches', Resolution: '720 x 1560 pixels' } },
-      { id: 702, name: 'Nokia XR20 Battery', description: 'Rugged 4630mAh battery for tough conditions.', price: 5100, icon: MobileIcon, compatibility: ['Nokia XR20'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '4630 mAh', Charging: '18W Wired' } },
-      { id: 703, name: 'Nokia 8.3 5G Camera', description: 'ZEISS Optics 64MP main camera module.', price: 9200, icon: MobileIcon, compatibility: ['Nokia 8.3 5G'], warrantyPeriod: '1 Year', specifications: { Main: '64 MP, f/1.9', UltraWide: '12 MP, f/2.2' } },
-      { id: 704, name: 'Nokia T20 Tablet Speaker', description: 'Stereo speaker for immersive sound.', price: 2200, icon: MobileIcon, compatibility: ['Nokia T20'], warrantyPeriod: '6 Months', specifications: { Type: 'Stereo Speakers' } },
+      { id: 701, name: 'Nokia G50 Screen', description: '6.82" HD+ display assembly.', price: 7500, icon: MobileIcon, compatibility: ['Nokia G50'], warrantyPeriod: '1 Year', specifications: { Type: 'IPS LCD', Size: '6.82 inches', Resolution: '720 x 1560 pixels' }, inTheBox: ['1x Screen Assembly'], keyFeatures: ['Large display for media consumption'] },
+      { id: 702, name: 'Nokia XR20 Battery', description: 'Rugged 4630mAh battery for tough conditions.', price: 5100, icon: MobileIcon, compatibility: ['Nokia XR20'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '4630 mAh', Charging: '18W Wired' }, inTheBox: ['1x Battery'], keyFeatures: ['Built for durability', 'Supports Qi wireless charging'] },
+      { id: 703, name: 'Nokia 8.3 5G Camera', description: 'ZEISS Optics 64MP main camera module.', price: 9200, icon: MobileIcon, compatibility: ['Nokia 8.3 5G'], warrantyPeriod: '1 Year', specifications: { Main: '64 MP, f/1.9', UltraWide: '12 MP, f/2.2' }, inTheBox: ['1x Main Camera Module'], keyFeatures: ['ZEISS cinematic effects', 'OZO audio recording'] },
+      { id: 704, name: 'Nokia T20 Tablet Speaker', description: 'Stereo speaker for immersive sound.', price: 2200, icon: LaptopIcon, compatibility: ['Nokia T20'], warrantyPeriod: '6 Months', specifications: { Type: 'Stereo Speakers' }, inTheBox: ['1x Loudspeaker Set'], keyFeatures: ['OZO Playback for immersive audio'] },
+      { id: 705, name: 'Nokia 3310 (2017) Battery', description: 'BL-4UL 1200mAh battery for the classic remake.', price: 1200, icon: MobileIcon, compatibility: ['Nokia 3310 (2017)'], warrantyPeriod: '3 Months', specifications: { Type: 'Li-Ion', Capacity: '1200 mAh' }, inTheBox: ['1x Battery'], keyFeatures: ['Long standby time', 'Removable'] },
+      { id: 706, name: 'Nokia G21 Charging Port', description: 'USB-C charging port for Nokia G-series.', price: 1800, icon: MobileIcon, compatibility: ['Nokia G21', 'Nokia G11'], warrantyPeriod: '3 Months', specifications: { Connector: 'USB-C' }, inTheBox: ['1x Charging Port Board'], keyFeatures: ['Restores charging and data transfer'] },
     ],
   },
   {
@@ -124,10 +143,12 @@ export const BRANDS_DATA: Brand[] = [
     shippingTime: 2,
     icon: MobileIcon,
     components: [
-      { id: 801, name: 'Realme GT 2 Pro Screen', description: '2K Super Reality Display with LTPO 2.0.', price: 18500, icon: MobileIcon, compatibility: ['Realme GT 2 Pro'], warrantyPeriod: '1 Year', specifications: { Type: 'LTPO2 AMOLED', Size: '6.7 inches', Resolution: '1440 x 3216 pixels' } },
-      { id: 802, name: 'Realme 9 Pro+ Battery', description: '4500mAh battery with 60W SuperDart Charge support.', price: 4800, icon: MobileIcon, compatibility: ['Realme 9 Pro+'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '4500 mAh', Charging: '60W Wired' } },
-      { id: 803, name: 'Realme X50 Pro Camera', description: '64MP quad-camera setup module.', price: 8900, icon: MobileIcon, compatibility: ['Realme X50 Pro'], warrantyPeriod: '1 Year', specifications: { Main: '64 MP, f/1.8', Telephoto: '12 MP, f/2.5' } },
-      { id: 804, name: 'Realme Buds Air 3 Battery', description: 'Replacement battery for earbuds.', price: 1500, icon: MobileIcon, compatibility: ['Realme Buds Air 3'], warrantyPeriod: '3 Months', specifications: { Type: 'Li-Ion', Capacity: '40 mAh (earbud)' } },
+      { id: 801, name: 'Realme GT 2 Pro Screen', description: '2K Super Reality Display with LTPO 2.0.', price: 18500, icon: MobileIcon, compatibility: ['Realme GT 2 Pro'], warrantyPeriod: '1 Year', specifications: { Type: 'LTPO2 AMOLED', Size: '6.7 inches', Resolution: '1440 x 3216 pixels' }, inTheBox: ['1x Screen Assembly'], keyFeatures: ['Adaptive refresh rate 1-120Hz', 'Corning Gorilla Glass Victus'] },
+      { id: 802, name: 'Realme 9 Pro+ Battery', description: '4500mAh battery with 60W SuperDart Charge support.', price: 4800, icon: MobileIcon, compatibility: ['Realme 9 Pro+'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '4500 mAh', Charging: '60W Wired' }, inTheBox: ['1x Battery'], keyFeatures: ['Charges to 50% in 15 mins'] },
+      { id: 803, name: 'Realme X50 Pro Camera', description: '64MP quad-camera setup module.', price: 8900, icon: MobileIcon, compatibility: ['Realme X50 Pro'], warrantyPeriod: '1 Year', specifications: { Main: '64 MP, f/1.8', Telephoto: '12 MP, f/2.5' }, inTheBox: ['1x Rear Camera Assembly'], keyFeatures: ['20x hybrid zoom', 'UIS Max video stabilization'] },
+      { id: 804, name: 'Realme Buds Air 3 Battery', description: 'Replacement battery for earbuds.', price: 1500, icon: MobileIcon, compatibility: ['Realme Buds Air 3'], warrantyPeriod: '3 Months', specifications: { Type: 'Li-Ion', Capacity: '40 mAh (earbud)' }, inTheBox: ['2x Earbud Batteries'], keyFeatures: ['Restores earbud playback time'] },
+      { id: 805, name: 'Realme Pad X Screen', description: '10.95" 2K FullView display.', price: 9200, icon: LaptopIcon, compatibility: ['Realme Pad X'], warrantyPeriod: '1 Year', specifications: { Type: 'IPS LCD', Size: '10.95 inches', Resolution: '1200 x 2000' }, inTheBox: ['1x LCD Assembly'], keyFeatures: ['O1 Ultra Vision Engine', 'TÜV Rheinland certified'] },
+      { id: 806, name: 'Realme GT Neo 3 Battery', description: '4500mAh battery for 150W UltraDart charging.', price: 5500, icon: MobileIcon, compatibility: ['Realme GT Neo 3 (150W)'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '4500 mAh' }, inTheBox: ['1x Battery'], keyFeatures: ['Supports 150W charging', 'Dual-cell design'] },
     ],
   },
   {
@@ -138,10 +159,170 @@ export const BRANDS_DATA: Brand[] = [
     shippingTime: 2,
     icon: MobileIcon,
     components: [
-      { id: 901, name: 'Vivo X80 Pro Camera', description: 'ZEISS T* Coating main camera module.', price: 17500, icon: MobileIcon, compatibility: ['Vivo X80 Pro'], warrantyPeriod: '1 Year', specifications: { Main: '50 MP, f/1.6', Gimbal: '8 MP, f/3.4' } },
-      { id: 902, name: 'Vivo V25 Screen', description: '6.44" AMOLED display with HDR10+ support.', price: 12500, icon: MobileIcon, compatibility: ['Vivo V25'], warrantyPeriod: '1 Year', specifications: { Type: 'AMOLED', Size: '6.44 inches', Resolution: '1080 x 2404 pixels' } },
-      { id: 903, name: 'Vivo iQOO 9T Battery', description: '4700mAh battery with 120W FlashCharge.', price: 6200, icon: MobileIcon, compatibility: ['Vivo iQOO 9T'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '4700 mAh', Charging: '120W Wired' } },
-      { id: 904, name: 'Vivo Y75 Back Glass', description: 'Fluorite AG Glass back panel.', price: 2800, icon: MobileIcon, compatibility: ['Vivo Y75'], warrantyPeriod: 'Not Applicable', specifications: { Material: 'Fluorite AG Glass' } },
+      { id: 901, name: 'Vivo X80 Pro Camera', description: 'ZEISS T* Coating main camera module.', price: 17500, icon: MobileIcon, compatibility: ['Vivo X80 Pro'], warrantyPeriod: '1 Year', specifications: { Main: '50 MP, f/1.6', Gimbal: '8 MP, f/3.4' }, inTheBox: ['1x Main Camera Assembly'], keyFeatures: ['ZEISS T* lens coating', 'Gimbal stabilization'] },
+      { id: 902, name: 'Vivo V25 Screen', description: '6.44" AMOLED display with HDR10+ support.', price: 12500, icon: MobileIcon, compatibility: ['Vivo V25'], warrantyPeriod: '1 Year', specifications: { Type: 'AMOLED', Size: '6.44 inches', Resolution: '1080 x 2404 pixels' }, inTheBox: ['1x Screen Assembly'], keyFeatures: ['90Hz refresh rate', 'HDR10+'] },
+      { id: 903, name: 'Vivo iQOO 9T Battery', description: '4700mAh battery with 120W FlashCharge.', price: 6200, icon: MobileIcon, compatibility: ['Vivo iQOO 9T'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '4700 mAh', Charging: '120W Wired' }, inTheBox: ['1x Battery'], keyFeatures: ['Charges to 50% in 8 mins'] },
+      { id: 904, name: 'Vivo Y75 Back Glass', description: 'Fluorite AG Glass back panel.', price: 2800, icon: MobileIcon, compatibility: ['Vivo Y75'], warrantyPeriod: 'Not Applicable', specifications: { Material: 'Fluorite AG Glass' }, inTheBox: ['1x Back Glass Panel'], keyFeatures: ['Color changing technology', 'Matte finish'] },
+      { id: 905, name: 'Vivo V27 Pro Screen', description: '6.78" 3D Curved AMOLED Display.', price: 14500, icon: MobileIcon, compatibility: ['Vivo V27 Pro'], warrantyPeriod: '1 Year', specifications: { Type: 'AMOLED', Size: '6.78 inches', Resolution: '1080 x 2400' }, inTheBox: ['1x Display Assembly'], keyFeatures: ['120Hz refresh rate', 'Color-changing glass'] },
+      { id: 906, name: 'Vivo TWS 2 Earbud Battery', description: 'Replacement battery for Vivo TWS 2 earbuds.', price: 1800, icon: MobileIcon, compatibility: ['Vivo TWS 2'], warrantyPeriod: '3 Months', specifications: { Type: 'Li-Ion' }, inTheBox: ['2x Earbud Batteries'], keyFeatures: ['Restores playback time'] },
+    ],
+  },
+  {
+    id: 10,
+    name: "LG TV Parts",
+    category: 'TV',
+    rating: 4.7,
+    shippingTime: 3,
+    icon: TvIcon,
+    components: [
+      { id: 1001, name: 'LG C2 55" OLED Panel', description: 'Genuine replacement OLED panel for LG C2 series.', price: 55000, icon: TvIcon, compatibility: ['OLED55C2PSA'], warrantyPeriod: '1 Year', specifications: { Type: 'OLED Evo', Size: '55 inches', Resolution: '4K UHD' }, inTheBox: ['1x OLED Panel'], keyFeatures: ['Self-lit pixels', 'Dolby Vision IQ'] },
+      { id: 1002, name: 'LG TV Mainboard', description: 'Main logic board for 2022 LG smart TVs.', price: 12500, icon: TvIcon, compatibility: ['LG UQ, NANO, QNED series'], warrantyPeriod: '6 Months', specifications: { Processor: 'α5 Gen 5 AI', HDMI: '4 ports' }, inTheBox: ['1x Mainboard'], keyFeatures: ['webOS 22 Smart TV', 'AI ThinQ'] },
+      { id: 1003, name: 'LG Magic Remote', description: '2023 model Magic Remote with voice and pointer.', price: 3500, icon: TvIcon, compatibility: ['Most 2021-2023 LG TVs'], warrantyPeriod: '3 Months', specifications: { Connectivity: 'Bluetooth', Features: 'NFC, Voice Assistant' }, inTheBox: ['1x Magic Remote'], keyFeatures: ['Point and click control', 'Voice commands'] },
+      { id: 1004, name: 'LG Power Supply Board', description: 'EAY65689401 Power Supply for LG OLED TVs.', price: 7800, icon: TvIcon, compatibility: ['LG CX, C1, C2 series'], warrantyPeriod: '6 Months', specifications: { PartNumber: 'EAY65689401', Output: '13.2V, 24V' }, inTheBox: ['1x Power Supply Board'], keyFeatures: ['OEM replacement part'] },
+      { id: 1005, name: 'LG Wi-Fi/Bluetooth Module', description: 'Wireless connectivity module for LG Smart TVs.', price: 4200, icon: TvIcon, compatibility: ['Most 2020-2023 LG TVs'], warrantyPeriod: '3 Months', specifications: { Standard: 'Wi-Fi 5, Bluetooth 5.0' }, inTheBox: ['1x Wi-Fi/Bluetooth Module'], keyFeatures: ['Enables smart features and wireless connections'] },
+      { id: 1006, name: 'LG TV Stand Legs', description: 'Original stand legs for 55-inch LG TVs.', price: 2500, icon: TvIcon, compatibility: ['LG UQ8000 55"'], warrantyPeriod: 'Not Applicable', specifications: { Material: 'High-grade Plastic', Color: 'Black' }, inTheBox: ['2x Stand Legs', 'Screws'], keyFeatures: ['Original fit and finish'] },
+      { id: 1007, name: 'LG TV IR Sensor', description: 'Infrared sensor for receiving remote commands.', price: 1800, icon: TvIcon, compatibility: ['Various LG Smart TV Models'], warrantyPeriod: '6 Months', specifications: { PartNumber: 'EBR78822001' }, inTheBox: ['1x IR Sensor board'], keyFeatures: ['Restores remote control functionality'] },
+    ],
+  },
+  {
+    id: 11,
+    name: "Dell Laptop Spares",
+    category: 'Laptop',
+    rating: 4.8,
+    shippingTime: 2,
+    icon: LaptopIcon,
+    components: [
+      { id: 1101, name: 'Dell XPS 15 Keyboard', description: 'Backlit keyboard assembly for XPS 15 9520.', price: 6800, icon: LaptopIcon, compatibility: ['XPS 15 (9520, 9510)'], warrantyPeriod: '6 Months', specifications: { Layout: 'US English', Backlight: 'Yes' }, inTheBox: ['1x Keyboard Assembly'], keyFeatures: ['Comfortable typing experience', 'Adjustable backlighting'] },
+      { id: 1102, name: 'Dell Latitude 7420 Battery', description: '63Wh 4-cell replacement battery.', price: 8200, icon: LaptopIcon, compatibility: ['Latitude 7420, 7320'], warrantyPeriod: '1 Year', specifications: { Capacity: '63Wh', Voltage: '15.2V' }, inTheBox: ['1x Battery'], keyFeatures: ['ExpressCharge capable', 'Long life cycle'] },
+      { id: 1103, name: 'Dell 15.6" FHD Screen', description: '1920x1080 non-touch display for Inspiron series.', price: 9500, icon: LaptopIcon, compatibility: ['Inspiron 15 3000, 5000'], warrantyPeriod: '1 Year', specifications: { Size: '15.6 inches', Resolution: '1920x1080', Type: 'IPS' }, inTheBox: ['1x LCD Screen'], keyFeatures: ['Anti-glare coating', 'Wide viewing angles'] },
+      { id: 1104, name: 'Dell XPS 13 Cooling Fan', description: 'Replacement CPU cooling fan for Dell XPS 13.', price: 3200, icon: LaptopIcon, compatibility: ['XPS 13 (9300, 9310)'], warrantyPeriod: '6 Months', specifications: { Voltage: '5V DC', Connector: '4-pin' }, inTheBox: ['1x Cooling Fan'], keyFeatures: ['Quiet operation', 'Efficient heat dissipation'] },
+      { id: 1105, name: '512GB NVMe SSD', description: 'Dell branded 512GB M.2 NVMe SSD for fast storage.', price: 7500, icon: LaptopIcon, compatibility: ['Most Dell laptops with M.2 slot'], warrantyPeriod: '3 Years', specifications: { Interface: 'PCIe Gen3 x4', FormFactor: 'M.2 2280' }, inTheBox: ['1x NVMe SSD'], keyFeatures: ['Fast read/write speeds', 'Improves boot time'] },
+      { id: 1106, name: 'Dell Inspiron Charging Port', description: 'DC power jack with cable for Inspiron 15 series.', price: 2100, icon: LaptopIcon, compatibility: ['Inspiron 15 5584, 5593'], warrantyPeriod: '3 Months', specifications: { Type: 'DC Power Jack', CableLength: '15 cm' }, inTheBox: ['1x Charging Port Assembly'], keyFeatures: ['Fixes charging connection issues'] },
+      { id: 1107, name: 'Dell XPS 13 Trackpad', description: 'Glass precision trackpad for XPS 13 9310.', price: 4800, icon: LaptopIcon, compatibility: ['XPS 13 (9310)'], warrantyPeriod: '6 Months', specifications: { Surface: 'Glass', Interface: 'I2C' }, inTheBox: ['1x Trackpad with flex cable'], keyFeatures: ['Multi-touch gesture support', 'Smooth glass surface'] },
+    ],
+  },
+  {
+    id: 12,
+    name: "Fossil Watch Parts",
+    category: 'Watch',
+    rating: 4.5,
+    shippingTime: 4,
+    icon: WatchIcon,
+    components: [
+      { id: 1201, name: 'Fossil 22mm Leather Strap', description: 'Genuine brown leather strap for Fossil watches.', price: 2499, icon: WatchIcon, compatibility: ['All 22mm lug width watches'], warrantyPeriod: '3 Months', specifications: { Material: 'Leather', Color: 'Brown', Width: '22mm' }, inTheBox: ['1x Leather Strap'], keyFeatures: ['Quick-release pins', 'Stainless steel buckle'] },
+      { id: 1202, name: 'Fossil Gen 6 Battery', description: 'Replacement battery for Fossil Gen 6 Smartwatch.', price: 3200, icon: WatchIcon, compatibility: ['Fossil Gen 6'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Ion', Capacity: '300mAh' }, inTheBox: ['1x Battery'], keyFeatures: ['Restores original battery life'] },
+      { id: 1203, name: 'Fossil Gen 5/6 Charging Puck', description: 'Magnetic USB charging cable for Fossil smartwatches.', price: 2800, icon: WatchIcon, compatibility: ['Fossil Gen 4, 5, 6'], warrantyPeriod: '3 Months', specifications: { Type: 'Magnetic USB', Length: '1m' }, inTheBox: ['1x Charging Cable'], keyFeatures: ['Fast charging', 'Snaps into place magnetically'] },
+      { id: 1204, name: 'Fossil Smartwatch Screen Protector', description: 'Tempered glass screen protector for 44mm cases.', price: 999, icon: WatchIcon, compatibility: ['Fossil Gen 6 (44mm)'], warrantyPeriod: 'Not Applicable', specifications: { Material: 'Tempered Glass', Hardness: '9H' }, inTheBox: ['2x Screen Protectors', 'Installation Kit'], keyFeatures: ['Scratch resistant', 'High transparency'] },
+      { id: 1205, name: 'Fossil 22mm Metal Bracelet', description: 'Stainless steel mesh bracelet for Fossil watches.', price: 3500, icon: WatchIcon, compatibility: ['All 22mm lug width watches'], warrantyPeriod: '3 Months', specifications: { Material: 'Stainless Steel', Color: 'Silver', Width: '22mm' }, inTheBox: ['1x Metal Bracelet'], keyFeatures: ['Quick-release pins', 'Adjustable magnetic clasp'] },
+    ],
+  },
+  {
+    id: 13,
+    name: "HP Laptop Spares",
+    category: 'Laptop',
+    rating: 4.6,
+    shippingTime: 2,
+    icon: LaptopIcon,
+    components: [
+      { id: 1301, name: 'HP Spectre x360 Keyboard', description: 'Backlit keyboard for HP Spectre x360 14.', price: 7200, icon: LaptopIcon, compatibility: ['Spectre x360 14'], warrantyPeriod: '6 Months', specifications: { Layout: 'US English', Backlight: 'Pale Gold' }, inTheBox: ['1x Keyboard Assembly'], keyFeatures: ['Precision touchpad', 'Durable design'] },
+      { id: 1302, name: 'HP Pavilion 15 Battery', description: 'Original HT03XL 41Wh battery.', price: 5500, icon: LaptopIcon, compatibility: ['Pavilion 15 series'], warrantyPeriod: '1 Year', specifications: { Capacity: '41Wh', Voltage: '11.4V' }, inTheBox: ['1x Battery'], keyFeatures: ['OEM genuine part'] },
+      { id: 1303, name: '16GB DDR4 RAM Module', description: 'HP branded 16GB DDR4 3200MHz SODIMM RAM.', price: 6000, icon: LaptopIcon, compatibility: ['Most modern HP laptops'], warrantyPeriod: '3 Years', specifications: { Size: '16GB', Speed: '3200MHz', Type: 'DDR4 SODIMM' }, inTheBox: ['1x RAM Module'], keyFeatures: ['Boosts multitasking performance'] },
+      { id: 1304, name: 'HP Envy x360 Touchpad', description: 'Touchpad with multi-touch gesture support.', price: 4500, icon: LaptopIcon, compatibility: ['HP Envy x360 13'], warrantyPeriod: '6 Months', specifications: { Interface: 'I2C', Finish: 'Glass surface' }, inTheBox: ['1x Touchpad Assembly'], keyFeatures: ['Smooth glass surface', 'Responsive tracking'] },
+      { id: 1305, name: 'HP Wide Vision HD Webcam', description: 'Replacement webcam module with dual array microphone.', price: 2900, icon: LaptopIcon, compatibility: ['HP Pavilion, Envy series'], warrantyPeriod: '6 Months', specifications: { Resolution: '720p HD', Features: 'Dual array digital microphones' }, inTheBox: ['1x Webcam Module'], keyFeatures: ['Wide-angle view', 'Clear video calls'] },
+      { id: 1306, name: 'HP 65W Smart AC Adapter', description: 'Original 65W power adapter with 4.5mm barrel connector.', price: 3800, icon: LaptopIcon, compatibility: ['Most modern HP laptops'], warrantyPeriod: '1 Year', specifications: { Output: '19.5V, 3.33A', Power: '65W' }, inTheBox: ['1x AC Adapter', '1x Power Cord'], keyFeatures: ['Built-in surge protection'] },
+      { id: 1307, name: 'HP Spectre x360 Hinge Assembly', description: '360-degree hinge set for Spectre x360 models.', price: 5800, icon: LaptopIcon, compatibility: ['Spectre x360 13'], warrantyPeriod: '6 Months', specifications: { Type: '360-degree dual hinge' }, inTheBox: ['Left and Right Hinge Assembly'], keyFeatures: ['Restores convertible functionality'] },
+    ],
+  },
+  {
+    id: 14,
+    name: "Sony TV Parts",
+    category: 'TV',
+    rating: 4.8,
+    shippingTime: 3,
+    icon: TvIcon,
+    components: [
+      { id: 1401, name: 'Sony Bravia 65" LED Panel', description: 'Full-array LED replacement panel for X90K series.', price: 62000, icon: TvIcon, compatibility: ['XR-65X90K'], warrantyPeriod: '1 Year', specifications: { Type: 'Full Array LED', Size: '65 inches', Resolution: '4K UHD' }, inTheBox: ['1x LED Panel'], keyFeatures: ['Cognitive Processor XR', 'XR Triluminos Pro'] },
+      { id: 1402, name: 'Sony TV Remote RMF-TX800U', description: 'Standard voice remote for 2022 Bravia models.', price: 4200, icon: TvIcon, compatibility: ['Sony X80K, X90K series'], warrantyPeriod: '3 Months', specifications: { Connectivity: 'Bluetooth', Features: 'Voice Search' }, inTheBox: ['1x Remote Control'], keyFeatures: ['Google Assistant built-in', 'Backlit buttons'] },
+      { id: 1403, name: 'Sony Bravia T-Con Board', description: 'Timing control board for 55" X90J series.', price: 6500, icon: TvIcon, compatibility: ['XR-55X90J'], warrantyPeriod: '6 Months', specifications: { PartNumber: 'A-5026-061-A', RefreshRate: '120Hz support' }, inTheBox: ['1x T-Con Board'], keyFeatures: ['Fixes display timing issues'] },
+      { id: 1404, name: 'Sony LED Backlight Strips', description: 'Full set of LED backlight strips for 65" models.', price: 8900, icon: TvIcon, compatibility: ['Sony X85J 65"'], warrantyPeriod: '1 Year', specifications: { Type: 'Direct LED', Quantity: '12 strips' }, inTheBox: ['12x LED Strips'], keyFeatures: ['Restores uniform backlighting'] },
+      { id: 1405, name: 'Sony Bravia Speaker Set', description: 'Left and right speaker assembly for clear audio.', price: 4800, icon: TvIcon, compatibility: ['Sony X95K series'], warrantyPeriod: '6 Months', specifications: { Output: '10W + 10W', Type: 'X-Balanced Speaker' }, inTheBox: ['2x Speakers'], keyFeatures: ['Acoustic Multi-Audio technology'] },
+      { id: 1406, name: 'Acoustic Surface Audio+ Actuator', description: 'Actuator that turns the screen into a speaker.', price: 7500, icon: TvIcon, compatibility: ['Sony Bravia A90J series'], warrantyPeriod: '1 Year', specifications: { Type: 'Vibrational Actuator' }, inTheBox: ['2x Actuators'], keyFeatures: ['Sound-from-picture reality', 'Immersive audio experience'] },
+    ],
+  },
+  {
+    id: 15,
+    name: "Garmin Watch Parts",
+    category: 'Watch',
+    rating: 4.9,
+    shippingTime: 1,
+    icon: WatchIcon,
+    components: [
+      { id: 1501, name: 'Garmin Fenix 7 QuickFit Band', description: '22mm silicone band for Fenix 7 series.', price: 3800, icon: WatchIcon, compatibility: ['Fenix 7, Epix Gen 2'], warrantyPeriod: '3 Months', specifications: { Material: 'Silicone', Color: 'Black', Width: '22mm' }, inTheBox: ['1x Watch Band'], keyFeatures: ['Easy to swap', 'Durable and comfortable'] },
+      { id: 1502, name: 'Garmin Forerunner 955 Battery', description: 'Replacement battery kit with tools.', price: 4500, icon: WatchIcon, compatibility: ['Forerunner 955'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Ion', Capacity: '450mAh' }, inTheBox: ['1x Battery', 'Tool Kit'], keyFeatures: ['Includes all necessary tools for replacement'] },
+      { id: 1503, name: 'Garmin Charging/Data Cable', description: 'Official USB cable for charging and data sync.', price: 2200, icon: WatchIcon, compatibility: ['Fenix 5/6/7, Forerunner 945/955'], warrantyPeriod: '3 Months', specifications: { Type: 'Proprietary USB', Length: '1m' }, inTheBox: ['1x Charging Cable'], keyFeatures: ['Reliable connection'] },
+      { id: 1504, name: 'Garmin Fenix 7X Bezel Ring', description: 'Adhesive stainless steel bezel styling protector.', price: 1800, icon: WatchIcon, compatibility: ['Fenix 7X'], warrantyPeriod: 'Not Applicable', specifications: { Material: 'Stainless Steel', Color: 'Matte Black' }, inTheBox: ['1x Bezel Ring'], keyFeatures: ['Protects from scratches', 'Adds a stylish look'] },
+      { id: 1505, name: 'HRM-Pro Plus Chest Strap', description: 'Heart rate monitor replacement strap.', price: 5500, icon: WatchIcon, compatibility: ['All Garmin HRMs'], warrantyPeriod: '6 Months', specifications: { Type: 'Heart Rate Monitor' }, inTheBox: ['1x HRM-Pro Plus module', '1x strap'], keyFeatures: ['Tracks running dynamics', 'Stores heart rate data'] },
+    ],
+  },
+  {
+    id: 16,
+    name: "Lenovo Laptop Spares",
+    category: 'Laptop',
+    rating: 4.7,
+    shippingTime: 2,
+    icon: LaptopIcon,
+    components: [
+      { id: 1601, name: 'Lenovo ThinkPad Keyboard', description: 'Classic TrackPoint keyboard for T-series ThinkPads.', price: 5900, icon: LaptopIcon, compatibility: ['ThinkPad T490, T14'], warrantyPeriod: '1 Year', specifications: { Layout: 'US English', Backlight: 'Yes', Features: 'TrackPoint' }, inTheBox: ['1x Keyboard'], keyFeatures: ['Iconic typing feel', 'Spill-resistant'] },
+      { id: 1602, name: 'Lenovo IdeaPad Flex 5 Battery', description: '52.5Wh internal battery for IdeaPad Flex 5.', price: 6500, icon: LaptopIcon, compatibility: ['IdeaPad Flex 5 14"'], warrantyPeriod: '1 Year', specifications: { Capacity: '52.5Wh', Voltage: '11.52V' }, inTheBox: ['1x Battery'], keyFeatures: ['Rapid Charge Boost support'] },
+      { id: 1603, name: 'Lenovo Yoga C940 Screen', description: '14" UHD Touchscreen display assembly.', price: 23000, icon: LaptopIcon, compatibility: ['Yoga C940 14"'], warrantyPeriod: '1 Year', specifications: { Size: '14 inches', Resolution: '3840x2160', Type: 'IPS Touch' }, inTheBox: ['1x Screen Assembly'], keyFeatures: ['Vibrant 4K resolution', 'Integrated webcam'] },
+      { id: 1604, name: 'Lenovo Legion 5 Cooling Fan', description: 'Dual fan assembly for Legion 5 gaming laptops.', price: 4200, icon: LaptopIcon, compatibility: ['Legion 5, Legion 5 Pro'], warrantyPeriod: '6 Months', specifications: { Voltage: '5V DC', Connector: '4-pin (x2)' }, inTheBox: ['2x Cooling Fans'], keyFeatures: ['Coldfront 3.0 technology'] },
+      { id: 1605, name: 'ThinkPad TrackPoint Module', description: 'Red TrackPoint cap replacement set.', price: 999, icon: LaptopIcon, compatibility: ['Most ThinkPad keyboards'], warrantyPeriod: 'Not Applicable', specifications: { Type: 'Soft Dome' }, inTheBox: ['3x TrackPoint Caps'], keyFeatures: ['Restores original pointer feel'] },
+    ],
+  },
+  {
+    id: 17,
+    name: "Apple Watch Parts",
+    category: 'Watch',
+    rating: 4.9,
+    shippingTime: 1,
+    icon: WatchIcon,
+    components: [
+      { id: 1701, name: 'Apple Watch Series 8 Screen', description: '45mm OLED Retina display replacement.', price: 18500, icon: WatchIcon, compatibility: ['Apple Watch Series 8 45mm'], warrantyPeriod: '1 Year', specifications: { Type: 'LTPO OLED Retina', Size: '45mm', Features: 'Always-On' }, inTheBox: ['1x Screen Assembly', 'Adhesive'], keyFeatures: ['Crack-resistant front crystal', 'Edge-to-edge display'] },
+      { id: 1702, name: 'Apple Watch SE Battery', description: 'Replacement battery for Apple Watch SE (1st Gen).', price: 5500, icon: WatchIcon, compatibility: ['Apple Watch SE (44mm, 1st Gen)'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Ion', Capacity: '296mAh' }, inTheBox: ['1x Battery', 'Adhesive'], keyFeatures: ['Restores all-day battery life'] },
+      { id: 1703, name: 'Apple Watch Sport Loop', description: 'Soft, breathable, and lightweight Sport Loop.', price: 3500, icon: WatchIcon, compatibility: ['42/44/45mm Apple Watches'], warrantyPeriod: 'Not Applicable', specifications: { Material: 'Woven Nylon', Color: 'Midnight' }, inTheBox: ['1x Sport Loop'], keyFeatures: ['Hook-and-loop fastener', 'Infinitely adjustable'] },
+      { id: 1704, name: 'Apple Watch Magnetic Charger', description: '1m USB-C magnetic fast charging cable.', price: 3200, icon: WatchIcon, compatibility: ['All Apple Watch Models'], warrantyPeriod: '1 Year', specifications: { Connector: 'USB-C', Length: '1m' }, inTheBox: ['1x Charging Cable'], keyFeatures: ['Supports fast charging for Series 7 and later'] },
+      { id: 1705, name: 'Apple Watch Ultra Digital Crown', description: 'Digital Crown and side button assembly.', price: 7800, icon: WatchIcon, compatibility: ['Apple Watch Ultra'], warrantyPeriod: '1 Year', specifications: { Material: 'Titanium' }, inTheBox: ['1x Digital Crown Assembly'], keyFeatures: ['Includes haptic feedback motor', 'OEM part'] },
+    ],
+  },
+  {
+    id: 18,
+    name: "Samsung TV Parts",
+    category: 'TV',
+    rating: 4.8,
+    shippingTime: 2,
+    icon: TvIcon,
+    components: [
+      { id: 1801, name: 'Samsung QLED Mainboard', description: 'Main logic board for QN90A Neo QLED TV series.', price: 18000, icon: TvIcon, compatibility: ['Samsung QN90A 65"'], warrantyPeriod: '1 Year', specifications: { Processor: 'Neo Quantum Processor 4K' }, inTheBox: ['1x Mainboard'], keyFeatures: ['Object Tracking Sound+', 'Quantum HDR 32x'] },
+      { id: 1802, name: 'Samsung The Frame One Connect Box', description: 'The slim One Connect Box for a clean setup.', price: 9500, icon: TvIcon, compatibility: ['2022 The Frame TVs'], warrantyPeriod: '1 Year', specifications: { CableLength: '5m', Ports: '4x HDMI, 3x USB' }, inTheBox: ['1x One Connect Box', '1x One Connect Cable'], keyFeatures: ['Minimizes cable clutter'] },
+      { id: 1803, name: 'Samsung SolarCell Remote', description: 'Eco-friendly remote with solar charging.', price: 4800, icon: TvIcon, compatibility: ['Most 2022/2023 Samsung TVs'], warrantyPeriod: '3 Months', specifications: { Connectivity: 'Bluetooth', Charging: 'Solar/USB-C' }, inTheBox: ['1x Remote Control'], keyFeatures: ['Charges with indoor light', 'Built-in microphone'] },
+      { id: 1804, name: 'Backlight Strips for Crystal UHD', description: 'Full set of LED backlight strips for AU8000 series.', price: 7200, icon: TvIcon, compatibility: ['Samsung AU8000 55"'], warrantyPeriod: '6 Months', specifications: { Type: 'Edge LED', Quantity: '2 strips' }, inTheBox: ['2x LED Strips'], keyFeatures: ['Restores picture brightness'] },
+      { id: 1805, name: 'One Connect Cable (Fiber Optic)', description: '10m in-wall rated fiber optic One Connect cable.', price: 12000, icon: TvIcon, compatibility: ['2022 The Frame, QN900B'], warrantyPeriod: '1 Year', specifications: { Length: '10m', Type: 'Fiber Optic' }, inTheBox: ['1x 10m One Connect Cable'], keyFeatures: ['Near-invisible connection', 'In-wall installation safe'] },
+    ],
+  },
+  {
+    id: 19,
+    name: "Oppo Mobile Parts",
+    category: 'Value',
+    rating: 4.4,
+    shippingTime: 3,
+    icon: MobileIcon,
+    components: [
+      { id: 1901, name: 'Oppo Reno 8 Pro Screen', description: '6.7" AMOLED display with frame for Reno 8 Pro.', price: 13500, icon: MobileIcon, compatibility: ['Oppo Reno 8 Pro'], warrantyPeriod: '1 Year', specifications: { Type: 'AMOLED', Size: '6.7 inches', Resolution: '1080 x 2412 pixels' }, inTheBox: ['1x Screen Assembly'], keyFeatures: ['120Hz refresh rate', 'HDR10+ support'] },
+      { id: 1902, name: 'Oppo F21 Pro Battery', description: '4500mAh replacement battery with SuperVOOC support.', price: 4100, icon: MobileIcon, compatibility: ['Oppo F21 Pro'], warrantyPeriod: '6 Months', specifications: { Type: 'Li-Po', Capacity: '4500 mAh', Charging: '33W Wired' }, inTheBox: ['1x Battery'], keyFeatures: ['33W SuperVOOC fast charging'] },
+      { id: 1903, name: 'Oppo A74 Charging Port', description: 'USB-C charging port flex cable assembly.', price: 2500, icon: MobileIcon, compatibility: ['Oppo A74'], warrantyPeriod: '3 Months', specifications: { Connector: 'USB Type-C 2.0' }, inTheBox: ['1x Charging Port Flex Cable'], keyFeatures: ['Restores charging'] },
+      { id: 1904, name: 'Oppo Find X5 Pro Camera Module', description: 'Main camera module with MariSilicon X imaging NPU.', price: 16000, icon: MobileIcon, compatibility: ['Oppo Find X5 Pro'], warrantyPeriod: '1 Year', specifications: { Main: '50 MP, f/1.7', UltraWide: '50 MP, f/2.2' }, inTheBox: ['1x Main Camera Assembly'], keyFeatures: ['Hasselblad Color Calibration', '4K Ultra Night Video'] },
+      { id: 1905, name: 'Oppo Find N2 Flip Cover Screen', description: '3.26-inch cover screen for the Find N2 Flip.', price: 9800, icon: MobileIcon, compatibility: ['Oppo Find N2 Flip'], warrantyPeriod: '1 Year', specifications: { Type: 'AMOLED', Size: '3.26 inches' }, inTheBox: ['1x Cover Screen Assembly'], keyFeatures: ['Vertical layout', 'Interactive widgets'] },
+      { id: 1906, name: 'Oppo Enco X2 Earbud Battery', description: 'Single earbud battery replacement for Enco X2.', price: 1900, icon: MobileIcon, compatibility: ['Oppo Enco X2'], warrantyPeriod: '3 Months', specifications: { Type: 'Li-Ion' }, inTheBox: ['1x Earbud Battery'], keyFeatures: ['Restores earbud battery life'] },
     ],
   }
 ];
@@ -151,6 +332,31 @@ export const DELIVERY_OPTIONS: DeliveryOption[] = [
     { id: 'express', name: 'Express Shipping', days: '2-3 days', cost: 500 },
     { id: 'nextday', name: 'Next-Day Delivery', days: '1 day', cost: 1200 },
 ];
+
+export const REVIEWS_DATA: Review[] = [
+    // iPhone 14 Pro Screen (101)
+    { id: 'r101-1', componentId: 101, userId: 'u1', userName: 'Alex R.', rating: 5, comment: "Perfect replacement! The display is crisp and bright, just like the original. Installation was tricky but the included tool kit was a lifesaver.", date: 'July 15, 2024', verifiedPurchase: true },
+    { id: 'r101-2', componentId: 101, userId: 'u2', userName: 'Samantha B.', rating: 4, comment: "Great quality screen. My only complaint is that the adhesive could be stronger. Had to use some of my own.", date: 'July 10, 2024', verifiedPurchase: true },
+    { id: 'r101-3', componentId: 101, userId: 'u5', userName: 'Chris G.', rating: 5, comment: "Saved me hundreds of dollars compared to going to the Apple Store. The ProMotion display works flawlessly.", date: 'July 8, 2024', verifiedPurchase: true },
+
+    // iPhone 13 Battery (102)
+    { id: 'r102-1', componentId: 102, userId: 'u3', userName: 'Mike P.', rating: 5, comment: "Brought my iPhone 13 back to life. Now I'm getting all-day battery life again. Highly recommend.", date: 'June 28, 2024', verifiedPurchase: true },
+
+    // Galaxy S23 Ultra Screen (201)
+    { id: 'r201-1', componentId: 201, userId: 'u4', userName: 'David C.', rating: 5, comment: "Absolutely flawless screen. The colors are stunning and the fingerprint sensor works perfectly. Worth every penny for an OEM part.", date: 'July 05, 2024', verifiedPurchase: true },
+    { id: 'r201-2', componentId: 201, userId: 'u6', userName: 'Jessica L.', rating: 5, comment: "It's expensive, but you get what you pay for. My S23 Ultra looks brand new.", date: 'July 01, 2024', verifiedPurchase: false },
+    { id: 'r201-3', componentId: 201, userId: 'u7', userName: 'Tom H.', rating: 3, comment: "The screen is great, but it arrived with a dead pixel. Had to go through the return process which was a bit slow.", date: 'June 25, 2024', verifiedPurchase: true },
+
+    // Pixel 7 Pro Screen (301)
+    { id: 'r301-1', componentId: 301, userId: 'u8', userName: 'Emily F.', rating: 5, comment: "Fantastic quality, and the price is very reasonable for an OLED panel of this caliber. My Pixel is as good as new.", date: 'June 30, 2024', verifiedPurchase: true },
+
+    // OnePlus 11 Screen (401)
+    { id: 'r401-1', componentId: 401, userId: 'u9', userName: 'Raj S.', rating: 4, comment: "The display is vibrant and smooth. No issues with the 120Hz refresh rate. The included frame made installation much easier.", date: 'July 12, 2024', verifiedPurchase: true },
+
+    // Dell XPS 15 Keyboard (1101)
+    { id: 'r1101-1', componentId: 1101, userId: 'u10', userName: 'Linda K.', rating: 5, comment: "My old keyboard was failing and this was the perfect replacement. The backlight is even and the keys feel great.", date: 'May 20, 2024', verifiedPurchase: true },
+];
+
 
 // FIX: Added ORDER_STATUS_PROGRESSION to be exported.
 export const ORDER_STATUS_PROGRESSION: OrderStatus[] = ['Processing', 'Shipped', 'Out for Delivery', 'Delivered'];

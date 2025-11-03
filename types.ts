@@ -9,6 +9,8 @@ export interface ComponentItem {
   compatibility: string[];
   warrantyPeriod: string;
   specifications: Record<string, string>;
+  inTheBox: string[];
+  keyFeatures: string[];
 }
 
 // FIX: Add the missing FlatComponentItem interface.
@@ -59,6 +61,10 @@ export interface User {
     name: string;
     email: string;
     address: string;
+    state?: string;
+    country?: string;
+    pinCode?: string;
+    phoneNumber?: string;
 }
 
 export type WarrantyClaimStatus = 'Pending' | 'Approved' | 'Shipped' | 'Rejected';
@@ -92,4 +98,5 @@ export interface Review {
     rating: number; // 1-5
     comment: string;
     date: string;
+    verifiedPurchase: boolean;
 }
